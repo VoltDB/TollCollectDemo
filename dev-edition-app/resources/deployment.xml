@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<deployment>
+    <cluster kfactor="0" sitesperhost="4"/>
+    <snapshot enabled="false"/>
+    <commandlog enabled="false"/>
+    <metrics enabled="true" interval="15s"/>
+</deployment>

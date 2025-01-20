@@ -1,0 +1,134 @@
+-------------- REPLICATED TABLES ------------------------------------------------
+-- Define tables that will hold static or slow moving reference data and do not
+-- need to be partitioned
+
+CREATE TABLE VEHICLE_TYPES (
+  vehicle_type      SMALLINT           NOT NULL, --Vehicle type ID
+  vehicle_class     VARCHAR(20)        NOT NULL, --Text description of vehicle type
+  toll_multip       DECIMAL            NOT NULL, --multiplier adjustment to base toll
+  PRIMARY KEY (vehicle_type)
+);
+
+CREATE TABLE TOLL_LOCATIONS (
+  toll_loc_id       SMALLINT           NOT NULL, --Unique ID for entry
+  toll_loc          VARCHAR(64)        NOT NULL, --Location of toll
+  toll_loc_status   TINYINT            NOT NULL, --0 = inactive, 1 = active
+  base_fare         DECIMAL            NOT NULL, --Base fare charge at toll location in USD
+  latitude          DECIMAL            NOT NULL,
+  longitude         DECIMAL            NOT NULL,
+  PRIMARY KEY (toll_loc_id)
+);
+
+-------------- PARTITIONED TABLES -----------------------------------------------
+-- Define tables that should be spread across database partitions for parallel processing
+-- Partition by column
+
+CREATE TABLE KNOWN_VEHICLES (
+  plate_num         VARCHAR(20)       NOT NULL, --String containing vehicle registration plate
+  account_id        INTEGER           NOT NULL, --Account owner of the vehicle
+  vehicle_type      SMALLINT          NOT NULL, --Type of vehicle. See toll table.
+  active            TINYINT           NOT NULL, --0 = inactive, 1 = active
+  exempt_status     TINYINT           NOT NULL, --0 = not exempt, 1 = exempt
+  PRIMARY KEY (plate_num)
+);
+PARTITION TABLE KNOWN_VEHICLES ON COLUMN plate_num;
+
+CREATE TABLE SCAN_HISTORY (
+scan_id           DECIMAL           NOT NULL,
+scan_timestamp    TIMESTAMP         NOT NULL,
+plate_num         VARCHAR(20)       NOT NULL, --String containing vehicle registration plate
+account_id        INTEGER,
+toll_loc          VARCHAR(64)       NOT NULL,
+toll_lane_num     VARCHAR(2)        NOT NULL,
+toll_amount       DECIMAL           NOT NULL,
+toll_reason       VARCHAR(200),
+scan_fee_amount   DECIMAL,
+total_amount      DECIMAL           NOT NULL,
+);
+PARTITION TABLE SCAN_HISTORY ON COLUMN plate_num;
+
+CREATE TABLE ACCOUNTS (
+                          account_id        INTEGER           NOT NULL, --Unique ID assigned on account creation
+                          account_status    TINYINT           NOT NULL, --0 = inactive, 1 = active
+                          auto_topup        TINYINT           NOT NULL, --0 = not enrolled, 1 = enrolled
+                          balance           DECIMAL           NOT NULL, --Prepaid balance in account in USD
+                          PRIMARY KEY (account_id)
+);
+PARTITION TABLE ACCOUNTS ON COLUMN account_id;
+
+CREATE TABLE ACCOUNT_HISTORY (
+   acct_tx_id        INTEGER           NOT NULL,
+   acct_tx_timestamp TIMESTAMP         NOT NULL,
+   account_id        INTEGER           NOT NULL,
+   plate_num         VARCHAR(20),
+   scan_id           INTEGER,
+   scan_timestamp    TIMESTAMP,
+   toll_loc          VARCHAR(64),
+   toll_lane_num     VARCHAR(2),
+   toll_amount       DECIMAL,
+   toll_reason       VARCHAR(200),
+   tx_fee_amount     DECIMAL,
+   total_amount      DECIMAL           NOT NULL,
+   tx_type           VARCHAR(6)        NOT NULL, --DEBIT for tolls, CREDIT for top ups.
+--  PRIMARY KEY (acct_tx_id)
+);
+PARTITION TABLE ACCOUNT_HISTORY ON COLUMN account_id;
+
+-------------- STREAMS ----------------------------------------------------------
+-- Define output stream tables for ephemeral processing
+-- Potential uses include generating materialized views, exporting to external
+-- systems, and/or writing to Volt topics for external consumers
+-- Data will not persist after processing
+
+CREATE STREAM bill_by_mail_export PARTITION ON COLUMN plate_num EXPORT TO TARGET bill_by_mail_service (
+  scan_id           INTEGER           NOT NULL,
+  scan_timestamp    TIMESTAMP         NOT NULL,
+  plate_num         VARCHAR(20)       NOT NULL, --String containing vehicle registration plate
+  toll_loc          VARCHAR(20)       NOT NULL,
+  toll_lane_num     VARCHAR(2)        NOT NULL,
+  toll_amount       DECIMAL           NOT NULL,
+  toll_reason       VARCHAR(20),
+  scan_fee_amount   DECIMAL,
+  tx_fee_amount     DECIMAL,
+  total_amount      DECIMAL           NOT NULL,
+);
+
+
+CREATE STREAM top_up_export PARTITION ON COLUMN account_id EXPORT TO TARGET top_up_service (
+  acct_tx_id        INTEGER           NOT NULL,
+  acct_tx_timestamp TIMESTAMP         NOT NULL,
+  account_id        INTEGER           NOT NULL,
+  topup_amount      DECIMAL           NOT NULL,
+);
+
+-------------- VIEWS ----------------------------------------------------------
+
+CREATE VIEW highest_grossing_locations
+            (toll_loc, total_toll_amount)
+AS SELECT toll_loc, SUM(toll_amount) AS total_toll_amount from SCAN_HISTORY GROUP BY toll_loc;
+
+CREATE VIEW location_scans
+            (toll_loc, total_count)
+AS SELECT toll_loc, count(*) AS total_count from SCAN_HISTORY GROUP BY toll_loc;
+
+CREATE VIEW invalid_scans_locations
+            (toll_loc, invalid_count)
+AS SELECT toll_loc, COUNT(*) AS invalid_count from SCAN_HISTORY WHERE toll_reason = 'UNKNOWN_VEHICLE' GROUP BY toll_loc;
+
+-------------- SQL STORED PROCEDURES ---------------------------------------------
+CREATE PROCEDURE AddToBalance PARTITION ON TABLE ACCOUNTS COLUMN account_id PARAMETER 1 AS
+UPDATE ACCOUNTS SET balance = balance + ?
+WHERE account_id = ?;
+
+-------------- JAVA STORED PROCEDURES --------------------------------------------
+
+CREATE PROCEDURE FROM CLASS com.voltdb.tollcollect.procedures.ChargeAccount;
+CREATE PROCEDURE FROM CLASS com.voltdb.tollcollect.procedures.ProcessPlate;
+
+-------------- INDEXES -----------------------------------------------------------
+-- Define any indexes for TABLES or VIEWS on columns that are not a PRIMARY KEY.
+
+
+
+-------------- SCHEDULED TASKS --------------------------------------------------
+-- Define tasks to execute stored procedures on a schedule

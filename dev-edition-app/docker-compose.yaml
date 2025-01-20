@@ -1,0 +1,113 @@
+services:
+  voltdb:
+    image: ${VOLTDB_IMAGE}
+    platform: linux/amd64
+    container_name: voltdb
+    hostname: voltdb
+    command: /opt/voltdb/tools/kubernetes/test-entrypoint.sh
+    healthcheck:
+      test: [ "CMD-SHELL", "sqlcmd --query='exec @Ping;'" ]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+    ports:
+      - 21212:21212
+    expose:
+      - "21212"
+    environment:
+      VOLTDB_START_CONFIG: "--ignore=thp -c 1 -H voltdb --publicinterface=localhost"
+      VOLTDB_LICENSE: "/etc/voltdb/license.xml"
+      VOLTDB_CONFIG: /etc/voltdb/deployment.xml
+      VOLTDB_SCHEMA: /etc/voltdb/voltdb-schemas
+      VOLTDB_CLASSES: /etc/voltdb/voltdb-classes
+      VOLTDB_DIR: /voltdb
+      VOLTDB_INIT_FORCE: true
+    volumes:
+      - ${SHARED_DIR_ROOT}:/etc/voltdb
+      - ./resources/deployment.xml:/etc/voltdb/deployment.xml
+      - ./resources/voltdb-schemas:/etc/voltdb/voltdb-schemas
+      - ./resources/voltdb-apps:/etc/voltdb/voltdb-classes
+      - db:/voltdb
+
+  voltdb-init:
+    image: ${VOLTDB_IMAGE}
+    platform: linux/amd64
+    container_name: voltdb-init
+    hostname: voltdb-init
+    command: >
+      sh -c "csvloader --skip=1 --reportdir=/etc/voltdb/data --servers=voltdb -f /etc/voltdb/data/accounts.csv ACCOUNTS && 
+             csvloader --skip=1 --reportdir=/etc/voltdb/data --servers=voltdb -f /etc/voltdb/data/known_vehicles.csv KNOWN_VEHICLES && 
+             csvloader --skip=1 --reportdir=/etc/voltdb/data --servers=voltdb -f /etc/voltdb/data/toll_locations.csv TOLL_LOCATIONS && 
+             csvloader --skip=1 --reportdir=/etc/voltdb/data --servers=voltdb -f /etc/voltdb/data/vehicle_types.csv VEHICLE_TYPES"
+    depends_on:
+      voltdb:
+        condition: service_healthy
+    volumes:
+      - ./resources/voltdb-apps:/etc/voltdb/data/
+
+  vmc:
+    image: voltdb/volt-vmc-svc-dev:latest
+    platform: linux/amd64
+    container_name: vmc
+    command: java -jar /opt/voltdb/volt-vmc-svc.jar --servers=voltdb --port=21212
+    depends_on:
+      voltdb:
+        condition: service_healthy
+    ports:
+      - 8080:8080
+    environment:
+      VOLTDB_CONTAINER: docker
+
+  prometheus:
+    image: prom/prometheus:v2.55.0
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./resources/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+
+  grafana:
+    image: grafana/grafana:11.3.0
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_NAME=Main Org.
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_BASIC_ENABLED=false
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+      - GF_AUTH_DISABLE_SIGNOUT_MENU=true
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_USERS_DEFAULT_THEME=light
+      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/etc/grafana/dashboards/welcome-dashboard.json
+      - GF_INSTALL_PLUGINS=yesoreyeram-infinity-datasource,marcusolsson-treemap-panel,zestairlove-compacthostmap-panel
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./resources/dashboards:/etc/grafana/dashboards
+      - ./resources/volt-stream.svg:/usr/share/grafana/public/img/grafana_icon.svg
+      - ./resources/volt-stream.png:/usr/share/grafana/public/img/grafana_icon.png
+      - ./resources/dashboards/voltdb:/etc/grafana/provisioning/voltdb-dashboards
+      - ./resources/dashboards/voltsp:/etc/grafana/provisioning/voltsp-dashboards
+      - ./resources/dashboard.yaml:/etc/grafana/provisioning/dashboards/dashboard.yaml
+      - ./resources/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
+
+  voltsp:
+    depends_on:
+      voltdb:
+        condition: service_healthy
+      voltdb-init:
+        condition: service_completed_successfully
+    image: voltdb/volt-streams-dev:master-latest
+    container_name: voltsp
+    volumes:
+      - ./resources/voltsp-apps:/volt-apps
+      - ./resources/voltsp-config.yaml:/etc/voltsp/configuration.yaml
+      - ${SHARED_DIR_ROOT}/config/license.xml:/etc/voltsp/license.xml
+
+volumes:
+  db:
+  grafana_data:

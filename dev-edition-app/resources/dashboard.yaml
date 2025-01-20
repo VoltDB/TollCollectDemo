@@ -1,0 +1,26 @@
+apiVersion: 1
+
+providers:
+  - name: 'voltdb'
+    type: file
+    folder: 'VoltDB'
+    disableDeletion: true
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/voltdb-dashboards
+      foldersFromFilesStructure: false
+  - name: 'voltsp'
+    type: file
+    folder: 'VoltSP'
+    disableDeletion: true
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/voltsp-dashboards
+      foldersFromFilesStructure: false
+  - name: 'tollcollect'
+    type: file
+    disableDeletion: true
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/dashboards/welcome-dashboard.json
+      foldersFromFilesStructure: false

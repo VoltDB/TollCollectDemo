@@ -1,0 +1,5 @@
+className: com.voltdb.tollcollect.pipeline.TollCollectStream
+
+tps: 10000
+voltdb:
+  server: voltdb

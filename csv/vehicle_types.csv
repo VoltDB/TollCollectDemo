@@ -1,0 +1,6 @@
+﻿vehicle_type,vehicle_class,toll_multip
+1,Motorcycle,0.5
+2,Car,1
+3,Small Truck,1.5
+4,Large Truck,2
+5,Bus,2

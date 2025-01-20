@@ -1,0 +1,20 @@
+apiVersion: 1
+
+datasources:
+  - name: prometheus
+    type: prometheus
+    uid: prometheus
+    isDefault: true
+    access: proxy
+    url: "http://prometheus:9090"
+    jsonData:
+      timeInterval: "30s"
+      prometheusType: Prometheus
+      prometheusVersion: 2.51.2
+  - name: voltdb
+    type: "yesoreyeram-infinity-datasource"
+    uid: "dea5xuen5apdsc"
+    access: "proxy"
+    url: "http://vmc:8080/api/2.0/"
+    jsonData:
+      global_queries: [ ]

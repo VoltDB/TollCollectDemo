@@ -1,0 +1,12 @@
+﻿toll_loc_id,toll_loc,toll_loc_status,base_fare,latitude,longitude
+1,Skyline Toll Plaza,1,2.00, 40.6943,-73.9249
+2,Nexus Crossing,1,2.00, 34.1141,-118.4068
+3,Elevation Pass,1,2.00, 41.8375,-87.6866
+4,Infinity Bridge,1,3.00, 25.7840,-80.2101
+5,Horizon Bridge,1,3.00, 32.7935,-96.7667
+6,Echo Lane Station,1,2.00, 37.7558,-122.4449
+7,Quantum Tunnel,1,4.00, 39.7620,-104.8758
+8,Tannhäuser Gate,1,2.00, 39.3051,-76.6144
+10,Astrolink Path,1,2.00, 38.6359,-90.2451
+11,Orbital Gate,1,2.00, 39.1238,-94.5541
+12,Lumen Tunnel,1,4.00, 37.5295,-77.4756
