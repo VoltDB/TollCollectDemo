@@ -16,3 +16,5 @@ jobs:
           java-version: '17'
       - run: |
           ./mvnw clean package -ntp
+          cd dev-edition-app/target/dev-edition-app-1.0-SNAPSHOT/dev-edition-app
+          docker compose up --dry-run
