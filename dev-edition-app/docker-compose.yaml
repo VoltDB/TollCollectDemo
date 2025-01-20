@@ -1,3 +1,11 @@
+#
+# Copyright (C) 2025 Volt Active Data Inc.
+#
+# Use of this source code is governed by an MIT
+# license that can be found in the LICENSE file or at
+# https://opensource.org/licenses/MIT.
+#
+
 services:
   voltdb:
     image: ${VOLTDB_IMAGE}
@@ -47,7 +55,7 @@ services:
       - ./resources/voltdb-apps:/etc/voltdb/data/
 
   vmc:
-    image: voltdb/volt-vmc-svc-dev:latest
+    image: ${VMC_IMAGE}
     platform: linux/amd64
     container_name: vmc
     command: java -jar /opt/voltdb/volt-vmc-svc.jar --servers=voltdb --port=21212
@@ -60,7 +68,7 @@ services:
       VOLTDB_CONTAINER: docker
 
   prometheus:
-    image: prom/prometheus:v2.55.0
+    image: ${PROMETHEUS_IMAGE}
     container_name: prometheus
     ports:
       - "9090:9090"
@@ -70,7 +78,7 @@ services:
       - '--config.file=/etc/prometheus/prometheus.yml'
 
   grafana:
-    image: grafana/grafana:11.3.0
+    image: ${GRAFANA_IMAGE}
     container_name: grafana
     ports:
       - "3000:3000"
@@ -96,12 +104,12 @@ services:
       - ./resources/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
 
   voltsp:
+    image: ${VOLTSP_IMAGE}
     depends_on:
       voltdb:
         condition: service_healthy
       voltdb-init:
         condition: service_completed_successfully
-    image: voltdb/volt-streams-dev:master-latest
     container_name: voltsp
     volumes:
       - ./resources/voltsp-apps:/volt-apps

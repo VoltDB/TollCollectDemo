@@ -1,3 +1,11 @@
+#
+# Copyright (C) 2025 Volt Active Data Inc.
+#
+# Use of this source code is governed by an MIT
+# license that can be found in the LICENSE file or at
+# https://opensource.org/licenses/MIT.
+#
+
 global:
   scrape_interval: 15s
   evaluation_interval: 15s
