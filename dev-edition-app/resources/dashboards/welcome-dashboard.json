@@ -196,10 +196,10 @@
                   "mode": "mod"
                 },
                 "size": {
-                  "field": "Gross",
+                  "field": "TOTAL_COUNT",
                   "fixed": 5,
-                  "max": 35,
-                  "min": 10
+                  "max": 15,
+                  "min": 3
                 },
                 "symbol": {
                   "fixed": "img/icons/marker/circle.svg",
@@ -221,7 +221,7 @@
             "location": {
               "mode": "auto"
             },
-            "name": "Locations",
+            "name": "Traffic",
             "tooltip": true,
             "type": "markers"
           },
@@ -449,6 +449,7 @@
           "filters": [],
           "format": "as-is",
           "global_query_id": "",
+          "hide": false,
           "parser": "backend",
           "refId": "Fares",
           "root_selector": "results.0",
@@ -914,13 +915,13 @@
     "list": []
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "Toll Collect",
   "uid": "dean7iburuz28f",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
