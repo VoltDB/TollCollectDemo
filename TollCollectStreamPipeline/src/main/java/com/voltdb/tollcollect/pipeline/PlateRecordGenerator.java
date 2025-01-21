@@ -11,19 +11,35 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class PlateRecordGenerator {
 
-    private static final String[] LOCATIONS = new String[]{
-            "Skyline Toll Plaza",
-            "Nexus Crossing",
-            "Elevation Pass",
-            "Infinity Bridge",
-            "Horizon Bridge",
-            "Echo Lane Station",
-            "Quantum Tunnel",
-            "Tannhäuser Gate",
-            "Astrolink Path",
-            "Orbital Gate",
-            "Lumen Tunnel"
-    };
+    private enum Location {
+        SKYLINE_TOLL_PLAZA("Skyline Toll Plaza", 0.1),
+        NEXUS_CROSSING("Nexus Crossing", 0.04),
+        ELEVATION_PASS("Elevation Pass", 0.13),
+        INFINITY_BRIDGE("Infinity Bridge", 0.32),
+        HORIZON_BRIDGE("Horizon Bridge", 0.15),
+        ECHO_LANE_STATION("Echo Lane Station", 0.05),
+        QUANTUM_TUNNEL("Quantum Tunnel", 0.34),
+        TANNHAUSER_GATE("Tannhäuser Gate", 0.09),
+        ASTROLINK_PATH("Astrolink Path", 0.03),
+        ORBITAL_GATE("Orbital Gate", 0.08),
+        LUMEN_TUNNEL("Lumen Tunnel", 0.12);
+
+        private final String name;
+        private final double invalidScanProbabilities;
+
+        Location(String name, double invalidScanProbabilities) {
+            this.name = name;
+            this.invalidScanProbabilities = invalidScanProbabilities;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public boolean shouldProduceInvalidScan() {
+            return ThreadLocalRandom.current().nextFloat() < invalidScanProbabilities;
+        }
+    }
 
     private static final String[] VEHICLE_TYPES = new String[]{
             "Motorcycle",
@@ -33,12 +49,12 @@ public class PlateRecordGenerator {
             "Bus"
     };
 
-    private String randomLocation() {
+    private Location randomLocation() {
         double exponentialDistributionSample = ThreadLocalRandom.current().nextExponential() * 2;
 
         int enumIndex = (int) Math.round(exponentialDistributionSample); // Map to nearest integer
-        enumIndex = Math.max(0, Math.min(LOCATIONS.length - 1, enumIndex)); // Clamp to valid indices
-        return LOCATIONS[enumIndex];
+        enumIndex = Math.max(0, Math.min(Location.values().length - 1, enumIndex)); // Clamp to valid indices
+        return Location.values()[enumIndex];
     }
 
     private String randomVehicleType() {
@@ -52,12 +68,11 @@ public class PlateRecordGenerator {
         return VEHICLE_TYPES[enumIndex];
     }
 
-    public String randomPlate(String location) {
+    String randomPlate(Location location) {
         ThreadLocalRandom random = ThreadLocalRandom.current();
 
         int plateNumber = random.nextInt(1000);
-        boolean shouldGenerateInvalidPlate = random.nextDouble() > 0.9;
-        if (shouldGenerateInvalidPlate) {
+        if (location.shouldProduceInvalidScan()) {
             return String.format("K%03d", plateNumber);
         } else {
             return String.format("X%03d", plateNumber);
@@ -67,14 +82,14 @@ public class PlateRecordGenerator {
     public PlateRecord generatePlateRecord() {
         long scanTimestamp = System.currentTimeMillis();
 
-        String location = randomLocation();
+        Location location = randomLocation();
         String lane = Integer.toString(ThreadLocalRandom.current().nextInt(5));
         String plateNum = randomPlate(location);
         String vehicleClass = randomVehicleType();
 
         return new PlateRecord(
                 scanTimestamp,
-                location,
+                location.getName(),
                 lane,
                 plateNum,
                 vehicleClass);

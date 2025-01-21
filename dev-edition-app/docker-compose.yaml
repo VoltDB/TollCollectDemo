@@ -32,7 +32,7 @@ services:
       VOLTDB_DIR: /voltdb
       VOLTDB_INIT_FORCE: true
     volumes:
-      - ${SHARED_DIR_ROOT}:/etc/voltdb
+      - ${LICENSE_FILE_PATH}:/etc/voltdb/license.xml
       - ./resources/deployment.xml:/etc/voltdb/deployment.xml
       - ./resources/voltdb-schemas:/etc/voltdb/voltdb-schemas
       - ./resources/voltdb-apps:/etc/voltdb/voltdb-classes
@@ -105,16 +105,19 @@ services:
 
   voltsp:
     image: ${VOLTSP_IMAGE}
+    platform: linux/amd64
     depends_on:
       voltdb:
         condition: service_healthy
       voltdb-init:
         condition: service_completed_successfully
     container_name: voltsp
+    environment:
+      - voltsp.metrics.tick=15
     volumes:
       - ./resources/voltsp-apps:/volt-apps
       - ./resources/voltsp-config.yaml:/etc/voltsp/configuration.yaml
-      - ${SHARED_DIR_ROOT}/config/license.xml:/etc/voltsp/license.xml
+      - ${LICENSE_FILE_PATH}:/etc/voltsp/license.xml
 
 volumes:
   db:

@@ -18,13 +18,13 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 15,
+  "id": 16,
   "links": [],
   "panels": [
     {
       "datasource": {
-        "type": "yesoreyeram-infinity-datasource",
-        "uid": "dea5xuen5apdsc"
+        "type": "datasource",
+        "uid": "-- Dashboard --"
       },
       "fieldConfig": {
         "defaults": {
@@ -47,13 +47,14 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unit": "short"
         },
         "overrides": [
           {
             "matcher": {
               "id": "byName",
-              "options": "TOTAL_TOLL_AMOUNT"
+              "options": "Gross"
             },
             "properties": [
               {
@@ -101,19 +102,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "B INVALID_COUNT"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Count"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "A TOLL_LOC"
+              "options": "TOLL_LOC"
             },
             "properties": [
               {
@@ -125,12 +114,40 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "B TOLL_LOC"
+              "options": "TOTAL_COUNT"
             },
             "properties": [
               {
                 "id": "displayName",
-                "value": "Location"
+                "value": "Traffic"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Invalid scan percent"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percentunit"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Invalid scans"
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": true,
+                  "tooltip": true,
+                  "viz": true
+                }
               }
             ]
           }
@@ -171,7 +188,7 @@
                 "color": {
                   "fixed": "green"
                 },
-                "opacity": 0.4,
+                "opacity": 0.5,
                 "rotation": {
                   "fixed": 0,
                   "max": 360,
@@ -179,10 +196,10 @@
                   "mode": "mod"
                 },
                 "size": {
-                  "field": "TOTAL_TOLL_AMOUNT",
+                  "field": "Gross",
                   "fixed": 5,
-                  "max": 15,
-                  "min": 2
+                  "max": 35,
+                  "min": 10
                 },
                 "symbol": {
                   "fixed": "img/icons/marker/circle.svg",
@@ -201,10 +218,6 @@
                 }
               }
             },
-            "filterData": {
-              "id": "byRefId",
-              "options": "A"
-            },
             "location": {
               "mode": "auto"
             },
@@ -219,7 +232,7 @@
                 "color": {
                   "fixed": "red"
                 },
-                "opacity": 0.4,
+                "opacity": 0.5,
                 "rotation": {
                   "fixed": 0,
                   "max": 360,
@@ -227,9 +240,9 @@
                   "mode": "mod"
                 },
                 "size": {
-                  "field": "B INVALID_COUNT",
+                  "field": "Invalid scans",
                   "fixed": 5,
-                  "max": 15,
+                  "max": 10,
                   "min": 2
                 },
                 "symbol": {
@@ -249,9 +262,8 @@
                 }
               }
             },
-            "filterData": {
-              "id": "byRefId",
-              "options": "B"
+            "location": {
+              "mode": "auto"
             },
             "name": "Invalid scans",
             "opacity": 0.4,
@@ -274,76 +286,13 @@
       "pluginVersion": "11.3.0",
       "targets": [
         {
-          "columns": [],
           "datasource": {
-            "type": "yesoreyeram-infinity-datasource",
-            "uid": "dea5xuen5apdsc"
+            "type": "datasource",
+            "uid": "-- Dashboard --"
           },
-          "filters": [],
-          "format": "as-is",
-          "global_query_id": "",
-          "hide": false,
-          "parser": "backend",
+          "panelId": 2,
           "refId": "A",
-          "root_selector": "results.0",
-          "source": "url",
-          "type": "json",
-          "url": "",
-          "url_options": {
-            "data": "",
-            "headers": [],
-            "method": "GET",
-            "params": [
-              {
-                "key": "Procedure",
-                "value": "@AdHoc"
-              },
-              {
-                "key": "admin",
-                "value": "true"
-              },
-              {
-                "key": "Parameters",
-                "value": "[\"SELECT     l.toll_loc,     l.latitude,     l.longitude,     hgl.total_toll_amount AS total_toll_amount FROM     TOLL_LOCATIONS l         LEFT JOIN     highest_grossing_locations hgl     ON         l.toll_loc = hgl.toll_loc ORDER BY     l.toll_loc\"]"
-              }
-            ]
-          }
-        },
-        {
-          "columns": [],
-          "datasource": {
-            "type": "yesoreyeram-infinity-datasource",
-            "uid": "dea5xuen5apdsc"
-          },
-          "filters": [],
-          "format": "as-is",
-          "global_query_id": "",
-          "hide": false,
-          "parser": "backend",
-          "refId": "B",
-          "root_selector": "results.0",
-          "source": "url",
-          "type": "json",
-          "url": "",
-          "url_options": {
-            "data": "",
-            "headers": [],
-            "method": "GET",
-            "params": [
-              {
-                "key": "Procedure",
-                "value": "@AdHoc"
-              },
-              {
-                "key": "admin",
-                "value": "true"
-              },
-              {
-                "key": "Parameters",
-                "value": "[\"SELECT     l.toll_loc,     l.latitude,     l.longitude,     hgl.invalid_count AS invalid_count FROM     TOLL_LOCATIONS l         LEFT JOIN     invalid_scans_locations hgl     ON         l.toll_loc = hgl.toll_loc ORDER BY     l.toll_loc\"]"
-              }
-            ]
-          }
+          "withTransforms": true
         }
       ],
       "title": "",
@@ -418,12 +367,60 @@
                 "value": "Traffic"
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "LATITUDE"
+            },
+            "properties": [
+              {
+                "id": "custom.hidden",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "LONGITUDE"
+            },
+            "properties": [
+              {
+                "id": "custom.hidden",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Invalid scan percent"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percentunit"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Invalid scans"
+            },
+            "properties": [
+              {
+                "id": "custom.hidden",
+                "value": true
+              }
+            ]
           }
         ]
       },
       "gridPos": {
         "h": 8,
-        "w": 10,
+        "w": 12,
         "x": 0,
         "y": 9
       },
@@ -597,8 +594,8 @@
           "id": "organize",
           "options": {
             "excludeByName": {
-              "LATITUDE": true,
-              "LONGITUDE": true,
+              "LATITUDE": false,
+              "LONGITUDE": false,
               "TOLL_LOC_ID": true,
               "TOLL_LOC_STATUS": true
             },
@@ -627,6 +624,35 @@
                 "field": "Gross"
               }
             ]
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Invalid scan percent",
+            "binary": {
+              "left": {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Invalid scans"
+                }
+              },
+              "operator": "/",
+              "right": {
+                "matcher": {
+                  "id": "byName",
+                  "options": "TOTAL_COUNT"
+                }
+              }
+            },
+            "mode": "binary",
+            "reduce": {
+              "include": [
+                "TOTAL_COUNT",
+                "Invalid scans"
+              ],
+              "reducer": "last"
+            }
           }
         }
       ],
@@ -881,7 +907,7 @@
     }
   ],
   "preload": false,
-  "refresh": "5s",
+  "refresh": "30s",
   "schemaVersion": 40,
   "tags": [],
   "templating": {
@@ -894,7 +920,7 @@
   "timepicker": {},
   "timezone": "browser",
   "title": "Toll Collect",
-  "uid": "dea5zd5l228zkc",
-  "version": 4,
+  "uid": "dean7iburuz28f",
+  "version": 1,
   "weekStart": ""
 }
