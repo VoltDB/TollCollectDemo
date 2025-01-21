@@ -112,6 +112,7 @@ services:
       voltdb-init:
         condition: service_completed_successfully
     container_name: voltsp
+    cpus: 0.3
     environment:
       - voltsp.metrics.tick=15
     volumes:
