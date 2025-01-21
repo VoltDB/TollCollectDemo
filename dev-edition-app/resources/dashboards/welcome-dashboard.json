@@ -822,6 +822,10 @@
               {
                 "id": "custom.width",
                 "value": 125
+              },
+              {
+                "id": "decimals",
+                "value": 1
               }
             ]
           }
