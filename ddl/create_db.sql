@@ -42,7 +42,7 @@ CREATE TABLE KNOWN_VEHICLES (
 PARTITION TABLE KNOWN_VEHICLES ON COLUMN plate_num;
 
 CREATE TABLE SCAN_HISTORY (
-scan_id           DECIMAL           NOT NULL,
+scan_id           BIGINT            NOT NULL,
 scan_timestamp    TIMESTAMP         NOT NULL,
 plate_num         VARCHAR(20)       NOT NULL, --String containing vehicle registration plate
 account_id        INTEGER,
@@ -52,7 +52,9 @@ toll_amount       DECIMAL           NOT NULL,
 toll_reason       VARCHAR(200),
 scan_fee_amount   DECIMAL,
 total_amount      DECIMAL           NOT NULL,
-);
+PRIMARY KEY (plate_num, scan_id))
+USING TTL 3600 SECONDS ON COLUMN scan_timestamp BATCH_SIZE 200 MAX_FREQUENCY 1;
+
 PARTITION TABLE SCAN_HISTORY ON COLUMN plate_num;
 
 CREATE TABLE ACCOUNTS (
@@ -162,7 +164,9 @@ FROM CLASS com.voltdb.tollcollect.procedures.ProcessPlate;
 -------------- INDEXES -----------------------------------------------------------
 -- Define any indexes for TABLES or VIEWS on columns that are not a PRIMARY KEY.
 
+CREATE INDEX sh_del_idx ON scan_history(plate_num, scan_timestamp, scan_id) ;
 
+CREATE INDEX sh_ttl_idx ON scan_history(scan_timestamp) ;
 
 -------------- SCHEDULED TASKS --------------------------------------------------
 -- Define tasks to execute stored procedures on a schedule

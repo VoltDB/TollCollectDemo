@@ -24,7 +24,7 @@ public class ProcessPlate extends VoltProcedure {
     public final SQLStmt getVehicleMultiplier = new SQLStmt(
             "SELECT toll_multip FROM VEHICLE_TYPES WHERE vehicle_class = ?;"
     );
-
+    
     // SQL statement to check known vehicles
     public final SQLStmt checkVehicle = new SQLStmt(
             "SELECT account_id, exempt_status, vehicle_type FROM KNOWN_VEHICLES " +
@@ -41,8 +41,15 @@ public class ProcessPlate extends VoltProcedure {
             "INSERT INTO SCAN_HISTORY VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
     );
 
+   // Delete old scan history records
+   public static final SQLStmt removeOldestTransaction = new SQLStmt("DELETE "
+              + "FROM scan_history "
+              + "WHERE plate_num = ? "
+              + "AND scan_timestamp < DATEADD(MINUTE, -3,NOW) "
+              + "ORDER BY plate_num, scan_timestamp, scan_id LIMIT 2;");
+
     public long run(
-            long scanTimestamp,
+            long scanTimestamp, 
             String location,
             String lane,
             String plateNum,
@@ -120,8 +127,11 @@ public class ProcessPlate extends VoltProcedure {
 
         // Insert into scan history
         voltQueueSQL(insertScanHistory,
-                scanId, scanTimestamp, plateNum, accountId,
+                scanId, new java.util.Date(scanTimestamp), plateNum, accountId,
                 location, lane, tollAmount, tollReason, scanFeeAmount, totalAmount);
+
+        // Delete stale scan history records
+        voltQueueSQL(removeOldestTransaction, plateNum);
 
         voltExecuteSQL(true);
 
