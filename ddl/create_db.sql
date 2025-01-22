@@ -128,10 +128,36 @@ CREATE PROCEDURE AddToBalance PARTITION ON TABLE ACCOUNTS COLUMN account_id PARA
 UPDATE ACCOUNTS SET balance = balance + ?
 WHERE account_id = ?;
 
+------------- SQL STORED PROCEDURES USED BY THE DASHBOARD ------------------------
+
+CREATE PROCEDURE dashboard_gross AS
+select * from highest_grossing_locations order by TOTAL_TOLL_AMOUNT desc;
+
+CREATE PROCEDURE dashboard_fares AS
+select * from TOLL_LOCATIONS order by base_fare, toll_loc_id desc;
+
+CREATE PROCEDURE dashboard_location_scans AS
+SELECT * FROM location_scans ORDER BY toll_loc;
+
+CREATE PROCEDURE dashboard_top_10_accounts AS
+SELECT * FROM accounts ORDER BY balance desc limit 10;
+
+CREATE PROCEDURE dashboard_vehicle_classes AS
+SELECT vehicle_class, toll_multip FROM vehicle_types;
+
+CREATE PROCEDURE dashboard_invalid_scans AS
+SELECT     l.toll_loc
+     ,     l.latitude
+     ,     l.longitude
+     ,     hgl.invalid_count AS invalid_count
+FROM     TOLL_LOCATIONS l
+LEFT JOIN     invalid_scans_locations hgl     ON         l.toll_loc = hgl.toll_loc ORDER BY     l.toll_loc;
+
 -------------- JAVA STORED PROCEDURES --------------------------------------------
 
 CREATE PROCEDURE FROM CLASS com.voltdb.tollcollect.procedures.ChargeAccount;
-CREATE PROCEDURE FROM CLASS com.voltdb.tollcollect.procedures.ProcessPlate;
+CREATE PROCEDURE PARTITION ON TABLE scan_history COLUMN plate_num PARAMETER 3
+FROM CLASS com.voltdb.tollcollect.procedures.ProcessPlate;
 
 -------------- INDEXES -----------------------------------------------------------
 -- Define any indexes for TABLES or VIEWS on columns that are not a PRIMARY KEY.

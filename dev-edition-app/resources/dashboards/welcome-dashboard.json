@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 16,
+  "id": 14,
   "links": [],
   "panels": [
     {
@@ -196,10 +196,10 @@
                   "mode": "mod"
                 },
                 "size": {
-                  "field": "TOTAL_COUNT",
+                  "field": "Gross",
                   "fixed": 5,
-                  "max": 15,
-                  "min": 3
+                  "max": 35,
+                  "min": 10
                 },
                 "symbol": {
                   "fixed": "img/icons/marker/circle.svg",
@@ -221,7 +221,7 @@
             "location": {
               "mode": "auto"
             },
-            "name": "Traffic",
+            "name": "Locations",
             "tooltip": true,
             "type": "markers"
           },
@@ -336,11 +336,15 @@
             "properties": [
               {
                 "id": "unit",
-                "value": "none"
+                "value": "currencyUSD"
               },
               {
                 "id": "custom.width",
                 "value": 80
+              },
+              {
+                "id": "decimals",
+                "value": 2
               }
             ]
           },
@@ -463,15 +467,11 @@
             "params": [
               {
                 "key": "Procedure",
-                "value": "@AdHoc"
+                "value": "dashboard_fares"
               },
               {
                 "key": "admin",
                 "value": "true"
-              },
-              {
-                "key": "Parameters",
-                "value": "[\"select * from TOLL_LOCATIONS order by base_fare desc\"]"
               }
             ]
           }
@@ -499,15 +499,11 @@
             "params": [
               {
                 "key": "Procedure",
-                "value": "@AdHoc"
+                "value": "dashboard_gross"
               },
               {
                 "key": "admin",
                 "value": "true"
-              },
-              {
-                "key": "Parameters",
-                "value": "[\"select * from highest_grossing_locations order by TOTAL_TOLL_AMOUNT desc\"]"
               }
             ]
           }
@@ -535,15 +531,11 @@
             "params": [
               {
                 "key": "Procedure",
-                "value": "@AdHoc"
+                "value": "dashboard_location_scans"
               },
               {
                 "key": "admin",
                 "value": "true"
-              },
-              {
-                "key": "Parameters",
-                "value": "[\"select * from location_scans\"]"
               }
             ]
           }
@@ -571,21 +563,17 @@
             "params": [
               {
                 "key": "Procedure",
-                "value": "@AdHoc"
+                "value": "dashboard_invalid_scans"
               },
               {
                 "key": "admin",
                 "value": "true"
-              },
-              {
-                "key": "Parameters",
-                "value": "[\"SELECT     l.toll_loc,     l.latitude,     l.longitude,     hgl.invalid_count AS invalid_count FROM     TOLL_LOCATIONS l         LEFT JOIN     invalid_scans_locations hgl     ON         l.toll_loc = hgl.toll_loc ORDER BY     l.toll_loc\"]"
               }
             ]
           }
         }
       ],
-      "title": "",
+      "title": "Invalid Scans",
       "transformations": [
         {
           "id": "merge",
@@ -692,126 +680,6 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "BALANCE"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "none"
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 4,
-        "x": 15,
-        "y": 9
-      },
-      "id": 3,
-      "options": {
-        "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "showHeader": true,
-        "sortBy": []
-      },
-      "pluginVersion": "11.3.0",
-      "targets": [
-        {
-          "columns": [],
-          "datasource": {
-            "type": "yesoreyeram-infinity-datasource",
-            "uid": "dea5xuen5apdsc"
-          },
-          "filters": [],
-          "format": "as-is",
-          "global_query_id": "",
-          "parser": "backend",
-          "refId": "A",
-          "root_selector": "results.0",
-          "source": "url",
-          "type": "json",
-          "url": "",
-          "url_options": {
-            "data": "",
-            "headers": [],
-            "method": "GET",
-            "params": [
-              {
-                "key": "Procedure",
-                "value": "@AdHoc"
-              },
-              {
-                "key": "admin",
-                "value": "true"
-              },
-              {
-                "key": "Parameters",
-                "value": "[\"select * from ACCOUNTS order by BALANCE DESC LIMIT 10\"]"
-              }
-            ]
-          }
-        }
-      ],
-      "title": "Top accounts",
-      "transformations": [
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "ACCOUNT_ID": false,
-              "ACCOUNT_STATUS": true,
-              "AUTO_TOPUP": true
-            },
-            "includeByName": {},
-            "indexByName": {},
-            "renameByName": {}
-          }
-        }
-      ],
-      "transparent": true,
-      "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "yesoreyeram-infinity-datasource",
-        "uid": "dea5xuen5apdsc"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
               "options": "TOLL_MULTIP"
             },
             "properties": [
@@ -825,7 +693,7 @@
               },
               {
                 "id": "decimals",
-                "value": 1
+                "value": 2
               }
             ]
           }
@@ -834,7 +702,7 @@
       "gridPos": {
         "h": 8,
         "w": 5,
-        "x": 19,
+        "x": 12,
         "y": 9
       },
       "id": 1,
@@ -875,21 +743,17 @@
             "params": [
               {
                 "key": "Procedure",
-                "value": "@AdHoc"
+                "value": "dashboard_vehicle_classes"
               },
               {
                 "key": "admin",
                 "value": "true"
-              },
-              {
-                "key": "Parameters",
-                "value": "[\"select VEHICLE_CLASS, TOLL_MULTIP from VEHICLE_TYPES\"]"
               }
             ]
           }
         }
       ],
-      "title": "",
+      "title": "Vehicle Classes",
       "transformations": [
         {
           "id": "organize",
@@ -926,6 +790,6 @@
   "timezone": "browser",
   "title": "Toll Collect",
   "uid": "dean7iburuz28f",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }
