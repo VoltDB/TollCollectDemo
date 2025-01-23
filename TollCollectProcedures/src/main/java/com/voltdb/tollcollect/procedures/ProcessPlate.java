@@ -50,7 +50,7 @@ public class ProcessPlate extends VoltProcedure {
               + "FROM scan_history "
               + "WHERE plate_num = ? "
               + "AND scan_timestamp < DATEADD(MINUTE, (-1 * ?),NOW) "
-              + "ORDER BY plate_num, scan_timestamp, scan_id LIMIT 2;");
+              + "ORDER BY scan_timestamp, scan_id, plate_num LIMIT 2;");
 
     public long run(
             long scanTimestamp, 
