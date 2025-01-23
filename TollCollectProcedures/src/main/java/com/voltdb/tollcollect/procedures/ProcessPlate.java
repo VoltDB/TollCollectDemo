@@ -21,6 +21,10 @@ public class ProcessPlate extends VoltProcedure {
             "SELECT base_fare FROM TOLL_LOCATIONS WHERE toll_loc = ? AND toll_loc_status = 1;"
     );
 
+    public final SQLStmt getAppParam = new SQLStmt(
+            "SELECT parameter_value FROM application_parameters WHERE parameter_name = ?;"
+    );
+    
     public final SQLStmt getVehicleMultiplier = new SQLStmt(
             "SELECT toll_multip FROM VEHICLE_TYPES WHERE vehicle_class = ?;"
     );
@@ -41,11 +45,11 @@ public class ProcessPlate extends VoltProcedure {
             "INSERT INTO SCAN_HISTORY VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
     );
 
-   // Delete old scan history records
+   // Delete up to 2 old scan history records
    public static final SQLStmt removeOldestTransaction = new SQLStmt("DELETE "
               + "FROM scan_history "
               + "WHERE plate_num = ? "
-              + "AND scan_timestamp < DATEADD(MINUTE, -3,NOW) "
+              + "AND scan_timestamp < DATEADD(MINUTE, (-1 * ?),NOW) "
               + "ORDER BY plate_num, scan_timestamp, scan_id LIMIT 2;");
 
     public long run(
@@ -54,7 +58,11 @@ public class ProcessPlate extends VoltProcedure {
             String lane,
             String plateNum,
             String vehicleClass) throws VoltAbortException {
-        long scanId = getUniqueId();
+
+        final long scanId = getUniqueId();
+
+        // Set default values for parameters
+	long keepMinutes = 10;
 
         //Initialize toll calculation variables
         double baseToll;
@@ -80,6 +88,18 @@ public class ProcessPlate extends VoltProcedure {
         VoltTable[] vehicleResults = voltExecuteSQL();
         if (vehicleResults[0].getRowCount() == 0) {
             throw new VoltAbortException("Invalid vehicle class");
+        }
+
+        // Get how long to keep records for
+        voltQueueSQL(getAppParam, "KEEP_MINUTES");
+        VoltTable[] paramResults = voltExecuteSQL();
+        if (paramResults[0].advanceRow()) {
+            try {
+                keepMinutes = Long.parseLong(paramResults[0].getString("PARAMETER_VALUE"));
+                }
+            catch (NumberFormatException e) {
+                throw new VoltAbortException("Invalid keep minutes of " + paramResults[0].getString("PARAMETER_VALUE"));
+                }
         }
 
         baseToll = tollResults[0]
@@ -131,7 +151,7 @@ public class ProcessPlate extends VoltProcedure {
                 location, lane, tollAmount, tollReason, scanFeeAmount, totalAmount);
 
         // Delete stale scan history records
-        voltQueueSQL(removeOldestTransaction, plateNum);
+        voltQueueSQL(removeOldestTransaction, plateNum, keepMinutes);
 
         voltExecuteSQL(true);
 

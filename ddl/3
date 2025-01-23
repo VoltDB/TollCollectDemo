@@ -184,7 +184,7 @@ CREATE INDEX sh_ttl_idx ON scan_history(scan_timestamp) ;
 
 -- How many minutes we keep data for
 
-UPSERT INTO application_parameters 
+INSERT INTO application_parameters 
 (parameter_name, parameter_value)
 VALUES
 ('KEEP_MINUTES','10');
