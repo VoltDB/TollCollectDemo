@@ -20,6 +20,7 @@ DROP PROCEDURE dashboard_invalid_scans IF EXISTS;
 DROP VIEW highest_grossing_locations IF EXISTS;
 DROP VIEW location_scans IF EXISTS;
 DROP VIEW invalid_scans_locations IF EXISTS;
+DROP VIEW activity_by_minute IF EXISTS;
 
 DROP TABLE VEHICLE_TYPES IF EXISTS;
 DROP TABLE TOLL_LOCATIONS IF EXISTS;

@@ -139,6 +139,11 @@ CREATE VIEW invalid_scans_locations
             (toll_loc, invalid_count)
 AS SELECT toll_loc, COUNT(*) AS invalid_count from SCAN_HISTORY WHERE toll_reason = 'UNKNOWN_VEHICLE' GROUP BY toll_loc;
 
+CREATE VIEW activity_by_minute AS
+SELECT TRUNCATE(MINUTE, SCAN_TIMESTAMP) SCAN_TIMESTAMP, TOLL_LOC, SUM(TOTAL_AMOUNT) TOTAL_AMOUNT 
+FROM scan_history 
+GROUP BY TRUNCATE(MINUTE, SCAN_TIMESTAMP), TOLL_LOC;
+
 -------------- SQL STORED PROCEDURES ---------------------------------------------
 CREATE PROCEDURE AddToBalance PARTITION ON TABLE ACCOUNTS COLUMN account_id PARAMETER 1 AS
 UPDATE ACCOUNTS SET balance = balance + ?
@@ -168,6 +173,14 @@ SELECT     l.toll_loc
      ,     hgl.invalid_count AS invalid_count
 FROM     TOLL_LOCATIONS l
 LEFT JOIN     invalid_scans_locations hgl     ON         l.toll_loc = hgl.toll_loc ORDER BY     l.toll_loc;
+
+--
+-- Will return one row for each toll_loc for the last KEEP_MINUTES minutes
+--
+CREATE PROCEDURE dashboard_activity_by_minute AS 
+SELECT * FROM activity_by_minute 
+WHERE toll_loc = ? 
+ORDER BY toll_loc, SCAN_TIMESTAMP;
 
 -------------- JAVA STORED PROCEDURES --------------------------------------------
 
