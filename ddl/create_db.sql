@@ -17,6 +17,8 @@ CREATE TABLE VEHICLE_TYPES (
   PRIMARY KEY (vehicle_type)
 );
 
+CREATE UNIQUE INDEX vt_uk_1 ON VEHICLE_TYPES (vehicle_class);
+
 CREATE TABLE TOLL_LOCATIONS (
   toll_loc_id       SMALLINT           NOT NULL, --Unique ID for entry
   toll_loc          VARCHAR(64)        NOT NULL, --Location of toll
@@ -26,6 +28,8 @@ CREATE TABLE TOLL_LOCATIONS (
   longitude         DECIMAL            NOT NULL,
   PRIMARY KEY (toll_loc_id)
 );
+
+CREATE UNIQUE INDEX tl_uk_1 ON TOLL_LOCATIONS (toll_loc);
 
 -------------- PARTITIONED TABLES -----------------------------------------------
 -- Define tables that should be spread across database partitions for parallel processing
