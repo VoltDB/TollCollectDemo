@@ -6,6 +6,12 @@
 -- https://opensource.org/licenses/MIT.
 --
 
+
+-- All DDL statements until END_OF_BATCH will succeed or fail together...
+--
+file -inlinebatch END_OF_BATCH
+
+
 -------------- REPLICATED TABLES ------------------------------------------------
 -- Define tables that will hold static or slow moving reference data and do not
 -- need to be partitioned
@@ -179,14 +185,8 @@ CREATE INDEX sh_ttl_idx ON scan_history(scan_timestamp) ;
 -------------- SCHEDULED TASKS --------------------------------------------------
 -- Define tasks to execute stored procedures on a schedule
 
+-- All statements from the start to here suceed or fail as a unit..
+--
 
-------------- Application Parameters --------------------------------------------
-
--- How many minutes we keep data for
-
-UPSERT INTO application_parameters 
-(parameter_name, parameter_value)
-VALUES
-('KEEP_MINUTES','10');
-
+END_OF_BATCH
 
