@@ -178,8 +178,15 @@ LEFT JOIN     invalid_scans_locations hgl     ON         l.toll_loc = hgl.toll_l
 -- Will return one row for each toll_loc for the last KEEP_MINUTES minutes
 --
 CREATE PROCEDURE dashboard_activity_by_minute AS 
-SELECT * FROM activity_by_minute 
-WHERE toll_loc = ? 
+SELECT SCAN_TIMESTAMP
+,      CAST(YEAR(SCAN_TIMESTAMP)  AS VARCHAR)
+||'/'||CAST(MONTH(SCAN_TIMESTAMP)  AS VARCHAR) 
+||'/'||CAST(DAY(SCAN_TIMESTAMP)  AS VARCHAR) 
+||' '||CAST(HOUR(SCAN_TIMESTAMP)  AS VARCHAR) 
+||':'||CAST(MINUTE(SCAN_TIMESTAMP)  AS VARCHAR)||':00' SCAN_TIMESTAMP_HHMM
+, TOLL_LOC, TOTAL_AMOUNT  FROM activity_by_minute 
+WHERE TOLL_LOC = ? 
+AND   SCAN_TIMESTAMP  < DATEADD(MINUTE, (-1),NOW)
 ORDER BY toll_loc, SCAN_TIMESTAMP;
 
 -------------- JAVA STORED PROCEDURES --------------------------------------------
