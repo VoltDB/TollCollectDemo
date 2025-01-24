@@ -12,6 +12,7 @@ import org.voltdb.VoltProcedure;
 import org.voltdb.VoltTable;
 import org.voltdb.VoltTableRow;
 import org.voltdb.VoltType;
+import java.math.BigDecimal;
 
 public class ProcessPlate extends VoltProcedure {
 
@@ -65,11 +66,11 @@ public class ProcessPlate extends VoltProcedure {
 	long keepMinutes = 10;
 
         //Initialize toll calculation variables
-        double baseToll;
-        double vehicleMultiplier;
-        double scanFeeAmount = 0.00;
-        double tollAmount;
-        double totalAmount;
+        BigDecimal baseToll;
+        BigDecimal vehicleMultiplier;
+        BigDecimal scanFeeAmount = new BigDecimal(0);
+        BigDecimal tollAmount;
+        BigDecimal totalAmount;
         String tollReason;
 
         //Initialize lookup values
@@ -104,15 +105,13 @@ public class ProcessPlate extends VoltProcedure {
 
         baseToll = tollResults[0]
                 .fetchRow(0)
-                .getDecimalAsBigDecimal("base_fare")
-                .doubleValue();
+                .getDecimalAsBigDecimal("base_fare");
 
         vehicleMultiplier = vehicleResults[0]
                 .fetchRow(0)
-                .getDecimalAsBigDecimal("toll_multip")
-                .doubleValue();
+                .getDecimalAsBigDecimal("toll_multip");
 
-        tollAmount = baseToll * vehicleMultiplier;
+        tollAmount = baseToll.multiply(vehicleMultiplier);
 
         // Check if vehicle is known
         voltQueueSQL(checkVehicle, plateNum);
@@ -123,8 +122,8 @@ public class ProcessPlate extends VoltProcedure {
             exemptStatus = (byte) vehicleRow.get("exempt_status", VoltType.TINYINT);
 
             if (exemptStatus == 1) {
-                tollAmount = 0.00;
-                totalAmount = 0.00;
+                tollAmount = new BigDecimal(0);
+                totalAmount = new BigDecimal(0);
                 tollReason = "EXEMPT";
             } else {
                 totalAmount = tollAmount;
@@ -132,8 +131,8 @@ public class ProcessPlate extends VoltProcedure {
             }
         } else {
             // Unknown vehicle or mismatched type
-            scanFeeAmount = 2.00;
-            totalAmount = tollAmount + scanFeeAmount;
+            scanFeeAmount = new BigDecimal(2);
+            totalAmount = tollAmount.add(scanFeeAmount);
             tollReason = "UNKNOWN_VEHICLE";
 
 //            // Insert into bill_by_mail_export stream

@@ -14,6 +14,7 @@ import org.voltdb.VoltTableRow;
 import org.voltdb.VoltType;
 
 import java.util.Date;
+import java.math.BigDecimal;
 
 public class ChargeAccount extends VoltProcedure {
 
@@ -53,8 +54,9 @@ public class ChargeAccount extends VoltProcedure {
                            String tollReason,
                            double totalAmount) throws VoltAbortException {
         //Initialize transaction variables
-        double txFeeAmount = 0.00;
-        final double topup_amount = 30.00;
+        BigDecimal txFeeAmount = new BigDecimal(0);
+        final BigDecimal topup_amount = new BigDecimal(30);
+        BigDecimal finalTotalAmount = new BigDecimal(0);
 
         // Use Volt to generate safe uniqueId and timestamp for this transaction.
         int acct_tx_id = (int) this.getUniqueId();
@@ -69,14 +71,14 @@ public class ChargeAccount extends VoltProcedure {
         }
 
         VoltTableRow accountRow = accountResults[0].fetchRow(0);
-        double currentBalance = accountRow.getDouble("balance");
+        BigDecimal currentBalance = accountRow.getDecimalAsBigDecimal("balance");
         byte autoTopup = (byte) accountRow.get("auto_topup", VoltType.TINYINT);
 
 
         // Check if balance after deduction would be below threshold
-        double projectedBalance = currentBalance - tollAmount;
+        BigDecimal projectedBalance = currentBalance.subtract(new BigDecimal(tollAmount));
 
-        if (projectedBalance < 10.00 && projectedBalance > 0 && autoTopup == 1) {
+        if (projectedBalance.compareTo(new BigDecimal(10)) == -1 && projectedBalance.compareTo(new BigDecimal(0)) == 1 && autoTopup == 1) {
             // Process auto top-up
             voltQueueSQL(addTopUpAmount, accountId, topup_amount);
 
@@ -104,12 +106,12 @@ public class ChargeAccount extends VoltProcedure {
                     null,
                     topup_amount,
                     "CREDIT");
-        } else if (projectedBalance < 0 && autoTopup == 0) {
+        } else if (projectedBalance.compareTo(new BigDecimal(0)) == -1 && autoTopup == 0) {
             // Add administrative fee
-            txFeeAmount = 25.00;
-            totalAmount = tollAmount + txFeeAmount;
+            txFeeAmount = new BigDecimal(25);
+            finalTotalAmount = txFeeAmount.add(new BigDecimal(tollAmount));
 
-//            // Send to bill-by-mail export stream. Separate export stream recommended to avoid MP transaction.
+            // Send to bill-by-mail export stream. Separate export stream recommended to avoid MP transaction.
 //            voltQueueSQL(exportBillByMail,
 //                    scanID,
 //                    scanTimestamp,
@@ -120,12 +122,12 @@ public class ChargeAccount extends VoltProcedure {
 //                    "INSUFFICIENT_BALANCE",
 //                    null,
 //                    txFeeAmount,
-//                    totalAmount);
+//                    finalTotalAmount);
 
         }
 
         // Update account balance
-        voltQueueSQL(updateBalance, totalAmount, accountId);
+        voltQueueSQL(updateBalance, finalTotalAmount, accountId);
 
         // Record toll transaction in account history
         voltQueueSQL(insertAccountHistory,
@@ -140,7 +142,7 @@ public class ChargeAccount extends VoltProcedure {
                 tollAmount,
                 tollReason,
                 txFeeAmount,
-                totalAmount,
+                finalTotalAmount,
                 "DEBIT");
 
         return voltExecuteSQL();
