@@ -114,10 +114,11 @@ services:
     container_name: voltsp
     cpus: 0.3
     environment:
-      - voltsp.metrics.tick=15
+      "voltsp.metrics.tick": 15
     volumes:
       - ./resources/voltsp-apps:/volt-apps
       - ./resources/voltsp-config.yaml:/etc/voltsp/configuration.yaml
+      - ./resources/log4j.xml:/etc/voltsp/log4j.xml
       - ${LICENSE_FILE_PATH}:/etc/voltsp/license.xml
 
 volumes:
