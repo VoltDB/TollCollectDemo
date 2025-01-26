@@ -16,6 +16,7 @@ DROP PROCEDURE dashboard_location_scans IF EXISTS;
 DROP PROCEDURE dashboard_top_10_accounts IF EXISTS;
 DROP PROCEDURE dashboard_vehicle_classes IF EXISTS;
 DROP PROCEDURE dashboard_invalid_scans IF EXISTS; 
+DROP PROCEDURE dashboard_parameters IF EXISTS; 
 
 DROP VIEW highest_grossing_locations IF EXISTS;
 DROP VIEW location_scans IF EXISTS;

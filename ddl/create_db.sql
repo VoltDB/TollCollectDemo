@@ -153,6 +153,9 @@ WHERE account_id = ?;
 
 ------------- SQL STORED PROCEDURES USED BY THE DASHBOARD ------------------------
 
+CREATE PROCEDURE dashboard_parameters AS
+select * from APPLICATION_PARAMETERS ORDER BY parameter_name;
+
 CREATE PROCEDURE dashboard_gross AS
 select * from highest_grossing_locations order by TOTAL_TOLL_AMOUNT desc;
 
