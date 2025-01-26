@@ -74,7 +74,7 @@
                         <exclude>LICENSE.txt</exclude>
                         <exclude>dashboards/**</exclude>
                         <exclude>csv/**</exclude>
-                        <exclude>**/.env</exclude>
+                        <exclude>**/.env*</exclude>
                     </excludes>
                 </configuration>
                 <dependencies>
