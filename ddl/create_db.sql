@@ -81,11 +81,11 @@ CREATE TABLE ACCOUNTS (
 PARTITION TABLE ACCOUNTS ON COLUMN account_id;
 
 CREATE TABLE ACCOUNT_HISTORY (
-   acct_tx_id        INTEGER           NOT NULL,
+   acct_tx_id        BIGINT           NOT NULL,
    acct_tx_timestamp TIMESTAMP         NOT NULL,
    account_id        INTEGER           NOT NULL,
    plate_num         VARCHAR(20),
-   scan_id           INTEGER,
+   scan_id           BIGINT,
    scan_timestamp    TIMESTAMP,
    toll_loc          VARCHAR(64),
    toll_lane_num     VARCHAR(2),
@@ -105,7 +105,7 @@ PARTITION TABLE ACCOUNT_HISTORY ON COLUMN account_id;
 -- Data will not persist after processing
 
 CREATE STREAM bill_by_mail_export PARTITION ON COLUMN plate_num EXPORT TO TARGET bill_by_mail_service (
-  scan_id           INTEGER           NOT NULL,
+  scan_id           BIGINT           NOT NULL,
   scan_timestamp    TIMESTAMP         NOT NULL,
   plate_num         VARCHAR(20)       NOT NULL, --String containing vehicle registration plate
   toll_loc          VARCHAR(20)       NOT NULL,
@@ -119,7 +119,7 @@ CREATE STREAM bill_by_mail_export PARTITION ON COLUMN plate_num EXPORT TO TARGET
 
 
 CREATE STREAM top_up_export PARTITION ON COLUMN account_id EXPORT TO TARGET top_up_service (
-  acct_tx_id        INTEGER           NOT NULL,
+  acct_tx_id        BIGINT           NOT NULL,
   acct_tx_timestamp TIMESTAMP         NOT NULL,
   account_id        INTEGER           NOT NULL,
   topup_amount      DECIMAL           NOT NULL,
@@ -223,7 +223,7 @@ CREATE INDEX sh_ttl_idx ON scan_history(scan_timestamp) ;
 -------------- SCHEDULED TASKS --------------------------------------------------
 -- Define tasks to execute stored procedures on a schedule
 
--- All statements from the start to here suceed or fail as a unit..
+-- All statements from the start to here succeed or fail as a unit..
 --
 
 END_OF_BATCH
