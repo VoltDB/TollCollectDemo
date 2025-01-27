@@ -118,7 +118,7 @@ services:
     volumes:
       - ./resources/voltsp-apps:/volt-apps
       - ./resources/voltsp-config.yaml:/etc/voltsp/configuration.yaml
-      - ./resources/log4j.xml:/etc/voltsp/log4j.xml
+      - ./resources/log4j2.xml:/etc/app/log4j2.xml
       - ${LICENSE_FILE_PATH}:/etc/voltsp/license.xml
 
 volumes:
