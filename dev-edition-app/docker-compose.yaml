@@ -115,7 +115,7 @@ services:
       voltdb-init:
         condition: service_completed_successfully
     container_name: voltsp
-    mem_limit: 2g
+    mem_limit: 4g
     environment:
       - JAVA_OPTS=-XX:InitialRAMPercentage=80.0 -XX:MinRAMPercentage=80.0 -XX:MaxRAMPercentage=80.0 --add-opens java.base/sun.nio.ch=ALL-UNNAMED -Dvoltsp.parallelism=1 -Dvoltsp.metrics.tick=15
     volumes:
