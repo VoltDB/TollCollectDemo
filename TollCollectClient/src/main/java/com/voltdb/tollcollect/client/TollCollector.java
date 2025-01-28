@@ -23,8 +23,8 @@ public class TollCollector {
 //         Object to handle user input
         Scanner sc = new Scanner(System.in);
 
-        VoltTable scanResult = null;
-        VoltTable chargeResult = null;
+        VoltTable scanResult;
+        VoltTable chargeResult;
 
 
         System.out.print("Enter VoltDB connection details " +
@@ -59,8 +59,11 @@ public class TollCollector {
                     tc.processScanRow(scanTimestamp, location, lane, plateNum, vehicleClass);
                 } catch (IOException | ProcCallException e) {
                     System.err.println("Error processing scan: " + e.getMessage());
+                    continue;
                 }
                 System.out.println("Checking Entry...");
+
+                scanResult = null;
                 try {
                     scanResult = tc.callAdHocSQL("SELECT * FROM SCAN_HISTORY WHERE plate_num = ? " +
                             "AND toll_loc = ? AND toll_lane_num = ? " +
@@ -81,8 +84,11 @@ public class TollCollector {
                         tc.chargeRow(scanId, scanTimestamp, location, lane, plateNum, accountId, tollAmount, tollReason);
                     } catch (IOException | ProcCallException e) {
                         System.err.println("Error charging account: " + e.getMessage());
+                        continue;
                     }
                     System.out.println("Checking Entry...");
+
+                    chargeResult = null;
                     try {
                         chargeResult = tc.callAdHocSQL("SELECT * FROM ACCOUNT_HISTORY WHERE plate_num = ? " +
                                 "AND toll_loc = ? AND toll_lane_num = ? " +
@@ -126,6 +132,7 @@ public class TollCollector {
     void disconnectFromVolt() throws InterruptedException {
         client.drain();
         client.close();
+        client = null;
     }
 
 
