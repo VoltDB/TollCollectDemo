@@ -76,6 +76,7 @@ services:
       - ./resources/prometheus.yml:/etc/prometheus/prometheus.yml
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--log.level=error'
 
   grafana:
     image: ${GRAFANA_IMAGE}
@@ -91,6 +92,8 @@ services:
       - GF_AUTH_DISABLE_SIGNOUT_MENU=true
       - GF_USERS_ALLOW_SIGN_UP=false
       - GF_USERS_DEFAULT_THEME=light
+      - GF_LOG_LEVEL=critical
+      - GF_LOG_MODE=file
       - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/etc/grafana/dashboards/welcome-dashboard.json
       - GF_INSTALL_PLUGINS=yesoreyeram-infinity-datasource,marcusolsson-treemap-panel,zestairlove-compacthostmap-panel
     volumes:
@@ -112,9 +115,9 @@ services:
       voltdb-init:
         condition: service_completed_successfully
     container_name: voltsp
-    cpus: 0.3
+    mem_limit: 4g
     environment:
-      "voltsp.metrics.tick": 15
+      - JAVA_OPTS=-XX:InitialRAMPercentage=80.0 -XX:MinRAMPercentage=80.0 -XX:MaxRAMPercentage=80.0 --add-opens java.base/sun.nio.ch=ALL-UNNAMED -Dvoltsp.parallelism=1 -Dvoltsp.metrics.tick=15
     volumes:
       - ./resources/voltsp-apps:/volt-apps
       - ./resources/voltsp-config.yaml:/etc/voltsp/configuration.yaml
