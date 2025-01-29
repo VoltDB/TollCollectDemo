@@ -1011,7 +1011,7 @@
       "type": "gauge"
     },
     {
-      "collapsed": false,
+      "collapsed": true,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1019,103 +1019,130 @@
         "y": 17
       },
       "id": 37,
-      "panels": [],
-      "title": "Pipeline",
-      "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 24,
-        "x": 0,
-        "y": 18
-      },
-      "id": 38,
-      "options": {
-        "edges": {},
-        "nodes": {
-          "arcs": []
-        }
-      },
-      "pluginVersion": "11.3.0",
-      "targets": [
+      "panels": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
           },
-          "disableTextWrap": false,
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum by (id, title, type, color, icon) (voltsp_node_graph_info{})",
-          "format": "table",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": true,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "nodes",
-          "useBackend": false
+          "gridPos": {
+            "h": 2,
+            "w": 24,
+            "x": 0,
+            "y": 18
+          },
+          "id": 43,
+          "options": {
+            "code": {
+              "language": "plaintext",
+              "showLineNumbers": false,
+              "showMiniMap": false
+            },
+            "content": "> **_NOTE:_** Pipeline view takes few minutes to load due to Prometheus gathering data.",
+            "mode": "markdown"
+          },
+          "pluginVersion": "11.3.0",
+          "title": "",
+          "transparent": true,
+          "type": "text"
         },
         {
           "datasource": {
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "disableTextWrap": false,
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum by (id, source, target) (voltsp_node_graph_edges_info{})",
-          "format": "table",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": true,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "edges",
-          "useBackend": false
-        }
-      ],
-      "title": "",
-      "transformations": [
-        {
-          "id": "filterByValue",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 20
+          },
+          "id": 38,
           "options": {
-            "filters": [
-              {
-                "config": {
-                  "id": "isNull",
-                  "options": {}
-                },
-                "fieldName": "target"
+            "edges": {},
+            "nodes": {
+              "arcs": []
+            }
+          },
+          "pluginVersion": "11.3.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
               },
-              {
-                "config": {
-                  "id": "equal",
-                  "options": {
-                    "value": ""
+              "disableTextWrap": false,
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "sum by (id, title, type, color, icon) (voltsp_node_graph_info{})",
+              "format": "table",
+              "fullMetaSearch": false,
+              "hide": false,
+              "includeNullMetadata": true,
+              "instant": true,
+              "legendFormat": "__auto",
+              "range": false,
+              "refId": "nodes",
+              "useBackend": false
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "disableTextWrap": false,
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "sum by (id, source, target) (voltsp_node_graph_edges_info{})",
+              "format": "table",
+              "fullMetaSearch": false,
+              "hide": false,
+              "includeNullMetadata": true,
+              "instant": true,
+              "legendFormat": "__auto",
+              "range": false,
+              "refId": "edges",
+              "useBackend": false
+            }
+          ],
+          "title": "",
+          "transformations": [
+            {
+              "id": "filterByValue",
+              "options": {
+                "filters": [
+                  {
+                    "config": {
+                      "id": "isNull",
+                      "options": {}
+                    },
+                    "fieldName": "target"
+                  },
+                  {
+                    "config": {
+                      "id": "equal",
+                      "options": {
+                        "value": ""
+                      }
+                    },
+                    "fieldName": "target"
                   }
-                },
-                "fieldName": "target"
+                ],
+                "match": "any",
+                "type": "exclude"
               }
-            ],
-            "match": "any",
-            "type": "exclude"
-          }
+            }
+          ],
+          "type": "nodeGraph"
         }
       ],
-      "type": "nodeGraph"
+      "title": "Pipeline",
+      "type": "row"
     },
     {
       "collapsed": false,
@@ -1123,7 +1150,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 26
+        "y": 18
       },
       "id": 9,
       "panels": [],
@@ -1201,7 +1228,7 @@
         "h": 9,
         "w": 14,
         "x": 0,
-        "y": 27
+        "y": 19
       },
       "id": 6,
       "options": {
@@ -1461,7 +1488,7 @@
         "h": 9,
         "w": 10,
         "x": 14,
-        "y": 27
+        "y": 19
       },
       "id": 5,
       "options": {
@@ -1552,7 +1579,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 36
+        "y": 28
       },
       "id": 34,
       "panels": [
@@ -1606,8 +1633,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -1619,7 +1645,7 @@
             "h": 7,
             "w": 8,
             "x": 0,
-            "y": 71
+            "y": 99
           },
           "id": 31,
           "options": {
@@ -1717,8 +1743,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -1730,7 +1755,7 @@
             "h": 7,
             "w": 8,
             "x": 8,
-            "y": 71
+            "y": 99
           },
           "id": 33,
           "options": {
@@ -1821,8 +1846,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -1834,7 +1858,7 @@
             "h": 7,
             "w": 8,
             "x": 16,
-            "y": 71
+            "y": 99
           },
           "id": 36,
           "options": {
@@ -1883,7 +1907,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 37
+        "y": 29
       },
       "id": 10,
       "panels": [
@@ -2014,7 +2038,7 @@
             "h": 9,
             "w": 5,
             "x": 0,
-            "y": 96
+            "y": 124
           },
           "id": 2,
           "options": {
@@ -2225,7 +2249,7 @@
             "h": 9,
             "w": 5,
             "x": 5,
-            "y": 96
+            "y": 124
           },
           "id": 1,
           "options": {
@@ -2331,7 +2355,7 @@
             "h": 9,
             "w": 5,
             "x": 10,
-            "y": 96
+            "y": 124
           },
           "id": 8,
           "options": {
@@ -2459,7 +2483,7 @@
             "h": 9,
             "w": 5,
             "x": 15,
-            "y": 96
+            "y": 124
           },
           "id": 7,
           "options": {
@@ -2593,7 +2617,7 @@
             "h": 9,
             "w": 4,
             "x": 20,
-            "y": 96
+            "y": 124
           },
           "id": 35,
           "options": {
