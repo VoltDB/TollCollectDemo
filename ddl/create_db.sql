@@ -179,6 +179,14 @@ SELECT     l.toll_loc
 FROM     TOLL_LOCATIONS l
 LEFT JOIN     invalid_scans_locations hgl     ON         l.toll_loc = hgl.toll_loc ORDER BY     l.toll_loc;
 
+CREATE PROCEDURE dashboard_gross_map AS
+SELECT     l.toll_loc
+     ,     l.latitude
+     ,     l.longitude
+     ,     hgl.TOTAL_TOLL_AMOUNT AS TOTAL_TOLL_AMOUNT
+FROM     TOLL_LOCATIONS l
+             LEFT JOIN     highest_grossing_locations hgl     ON         l.toll_loc = hgl.toll_loc ORDER BY     l.toll_loc;
+
 --
 -- Will return one row for each toll_loc for the last KEEP_MINUTES minutes
 --
