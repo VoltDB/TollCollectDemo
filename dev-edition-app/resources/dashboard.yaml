@@ -32,10 +32,3 @@ providers:
     options:
       path: /etc/grafana/dashboards/welcome-dashboard.json
       foldersFromFilesStructure: false
-  - name: 'tollcollect-2'
-    type: file
-    disableDeletion: true
-    allowUiUpdates: true
-    options:
-      path: /etc/grafana/dashboards/welcome-dashboard-2.json
-      foldersFromFilesStructure: false
