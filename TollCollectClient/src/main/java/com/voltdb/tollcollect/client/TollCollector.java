@@ -1,3 +1,10 @@
+/*
+ * Copyright (C) 2025 Volt Active Data Inc.
+ *
+ * Use of this source code is governed by an MIT
+ * license that can be found in the LICENSE file or at
+ * https://opensource.org/licenses/MIT.
+ */
 package com.voltdb.tollcollect.client;
 
 import org.voltdb.VoltTable;
@@ -12,7 +19,7 @@ import java.util.NoSuchElementException;
 public class TollCollector {
 
     private static final String DEFAULT_VOLT_HOST = "localhost";
-    private static final String DEFAULT_VOLT_PORT = "21212";
+    private static final int DEFAULT_VOLT_PORT = 21212;
 
     public static void main(String[] args) {
         Console console = System.console();
@@ -104,7 +111,7 @@ public class TollCollector {
 
         // If provided, user input will replace default connection details for Volt.
         String servers = DEFAULT_VOLT_HOST + ":" + DEFAULT_VOLT_PORT;
-        if (connectionInput != null) {
+        if (connectionInput != null && !connectionInput.isEmpty()) {
             servers = connectionInput;
         }
         return servers;

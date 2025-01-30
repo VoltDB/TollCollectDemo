@@ -1,3 +1,10 @@
+/*
+ * Copyright (C) 2025 Volt Active Data Inc.
+ *
+ * Use of this source code is governed by an MIT
+ * license that can be found in the LICENSE file or at
+ * https://opensource.org/licenses/MIT.
+ */
 package com.voltdb.tollcollect.client;
 
 import org.voltdb.VoltTable;
@@ -47,7 +54,7 @@ public class TollCollectorDbClient implements AutoCloseable {
     // Method used to call AdHoc SQL and return query result as VoltTable
     VoltTable callAdHocSQL(Object... arguments) throws IOException, ProcCallException {
         // Call AdHoc procedure by specifying "@AdHoc" as first parameter, followed by string containing SQL code and parameters
-        return client.callProcedureSync("@AdHoc", arguments).getResults()[0];
+        return callProcedureSynchronously("@AdHoc", arguments)[0];
     }
 
     // Method used to charge account
@@ -58,11 +65,17 @@ public class TollCollectorDbClient implements AutoCloseable {
         callProcedureSynchronously("ChargeAccount", scanId, scanTimestamp, location, lane, plateNum, accountId, tollAmount, tollReason);
     }
 
-    private void callProcedureSynchronously(String procedure, Object... arguments) throws IOException, ProcCallException {
-        ClientResponse chargeAccountResponse = client.callProcedureSync(procedure, arguments);
+    private VoltTable[] callProcedureSynchronously(String procedure, Object... arguments) throws IOException, ProcCallException {
+        ClientResponse response = client.callProcedureSync(procedure, arguments);
+        if (response.getStatus() != ClientResponse.SUCCESS) {
+            System.out.printf("Error calling procedure %s: %s%n", procedure, response.getStatusString());
+        }
+
         // Report transaction performance metrics available in ClientResponse object
         System.out.printf("Estimated Database Transaction Time: %.3fs | End-to-end Transaction Time: %.3fs%n",
-                (chargeAccountResponse.getClusterRoundtrip() / 1000.0),
-                (chargeAccountResponse.getClientRoundtrip() / 1000.0));
+                (response.getClusterRoundtrip() / 1000.0),
+                (response.getClientRoundtrip() / 1000.0));
+
+        return response.getResults();
     }
 }
