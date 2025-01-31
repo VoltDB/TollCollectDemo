@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2025 Volt Active Data Inc.
+
+    Use of this source code is governed by an MIT
+    license that can be found in the LICENSE file or at
+    https://opensource.org/licenses/MIT.
+
+-->
+<Configuration status="ERROR">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d   %-5p [%t] %c: %m%n"/>
+        </Console>
+
+        <RollingRandomAccessFile name="File"
+                                 fileName="/app/logs/app.log"
+                                 filePattern="/app/logs/app.%i.log.gz"
+                                 immediateFlush="true"
+                                 append="false">
+            <JsonLayout complete="false"
+                        compact="true"
+                        eventEol="true"
+                        properties="false"
+                        includeTimeMillis="true"
+                        stacktraceAsString="true">
+                <KeyValuePair key="pipeline" value="$${main:pipeline:-}"/>
+            </JsonLayout>
+
+            <Policies>
+                <SizeBasedTriggeringPolicy size="50 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="1"/>
+        </RollingRandomAccessFile>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="CONFIG" level="INFO" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
+        </Logger>
+
+        <Logger name="HOST" level="INFO"/>
+
+        <Root level="INFO">
+            <AppenderRef ref="Console">
+                <Filters>
+                    <DuplicateMessageFilter timeWindowMillis="10000"/>
+                </Filters>
+            </AppenderRef>
+            <AppenderRef ref="File">
+                <Filters>
+                    <DuplicateMessageFilter timeWindowMillis="10000"/>
+                </Filters>
+            </AppenderRef>
+        </Root>
+    </Loggers>
+</Configuration>

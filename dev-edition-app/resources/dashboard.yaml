@@ -1,0 +1,34 @@
+#
+# Copyright (C) 2025 Volt Active Data Inc.
+#
+# Use of this source code is governed by an MIT
+# license that can be found in the LICENSE file or at
+# https://opensource.org/licenses/MIT.
+#
+
+apiVersion: 1
+
+providers:
+  - name: 'voltdb'
+    type: file
+    folder: 'VoltDB'
+    disableDeletion: true
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/voltdb-dashboards
+      foldersFromFilesStructure: false
+  - name: 'voltsp'
+    type: file
+    folder: 'VoltSP'
+    disableDeletion: true
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/voltsp-dashboards
+      foldersFromFilesStructure: false
+  - name: 'tollcollect'
+    type: file
+    disableDeletion: true
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/dashboards/welcome-dashboard.json
+      foldersFromFilesStructure: false

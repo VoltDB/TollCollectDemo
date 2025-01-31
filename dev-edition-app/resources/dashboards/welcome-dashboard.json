@@ -1,0 +1,2588 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 14,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "dea5xuen5apdsc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 2,
+          "mappings": [],
+          "min": 0,
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "currencyUSD"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 18,
+        "x": 0,
+        "y": 0
+      },
+      "id": 41,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": true,
+        "text": {
+          "titleSize": 12
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "SCAN_TIMESTAMP_HHMM",
+              "text": "Scan Time",
+              "timestampFormat": "2006/01/02 15:04:05",
+              "type": "timestamp"
+            },
+            {
+              "selector": "TOTAL_AMOUNT",
+              "text": "Quantum Tunnel",
+              "type": "number"
+            }
+          ],
+          "computed_columns": [
+            {
+              "selector": "",
+              "text": "",
+              "type": "string"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "dea5xuen5apdsc"
+          },
+          "filters": [],
+          "format": "as-is",
+          "global_query_id": "",
+          "hide": false,
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "results.0",
+          "source": "url",
+          "summarizeBy": "",
+          "summarizeExpression": "",
+          "type": "json",
+          "url": "",
+          "url_options": {
+            "data": "",
+            "headers": [],
+            "method": "GET",
+            "params": [
+              {
+                "key": "Procedure",
+                "value": "dashboard_activity_by_minute"
+              },
+              {
+                "key": "admin",
+                "value": "true"
+              },
+              {
+                "key": "Parameters",
+                "value": "[\"Quantum Tunnel\"]"
+              }
+            ]
+          }
+        },
+        {
+          "columns": [
+            {
+              "selector": "SCAN_TIMESTAMP_HHMM",
+              "text": "Scan Time",
+              "timestampFormat": "2006/01/02 15:04:05",
+              "type": "timestamp"
+            },
+            {
+              "selector": "TOTAL_AMOUNT",
+              "text": "Astrolink Path",
+              "type": "number"
+            }
+          ],
+          "computed_columns": [
+            {
+              "selector": "",
+              "text": "",
+              "type": "string"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "dea5xuen5apdsc"
+          },
+          "filters": [],
+          "format": "as-is",
+          "global_query_id": "",
+          "hide": false,
+          "parser": "backend",
+          "refId": "B",
+          "root_selector": "results.0",
+          "source": "url",
+          "summarizeBy": "",
+          "summarizeExpression": "",
+          "type": "json",
+          "url": "",
+          "url_options": {
+            "data": "",
+            "headers": [],
+            "method": "GET",
+            "params": [
+              {
+                "key": "Procedure",
+                "value": "dashboard_activity_by_minute"
+              },
+              {
+                "key": "admin",
+                "value": "true"
+              },
+              {
+                "key": "Parameters",
+                "value": "[\"Astrolink Path\"]"
+              }
+            ]
+          }
+        },
+        {
+          "columns": [
+            {
+              "selector": "SCAN_TIMESTAMP_HHMM",
+              "text": "Scan Time",
+              "timestampFormat": "2006/01/02 15:04:05",
+              "type": "timestamp"
+            },
+            {
+              "selector": "TOTAL_AMOUNT",
+              "text": "Skyline Toll Plaza",
+              "type": "number"
+            }
+          ],
+          "computed_columns": [
+            {
+              "selector": "",
+              "text": "",
+              "type": "string"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "dea5xuen5apdsc"
+          },
+          "filters": [],
+          "format": "as-is",
+          "global_query_id": "",
+          "hide": false,
+          "parser": "backend",
+          "refId": "C",
+          "root_selector": "results.0",
+          "source": "url",
+          "summarizeBy": "",
+          "summarizeExpression": "",
+          "type": "json",
+          "url": "",
+          "url_options": {
+            "data": "",
+            "headers": [],
+            "method": "GET",
+            "params": [
+              {
+                "key": "Procedure",
+                "value": "dashboard_activity_by_minute"
+              },
+              {
+                "key": "admin",
+                "value": "true"
+              },
+              {
+                "key": "Parameters",
+                "value": "[\"Skyline Toll Plaza\"]"
+              }
+            ]
+          }
+        },
+        {
+          "columns": [
+            {
+              "selector": "SCAN_TIMESTAMP_HHMM",
+              "text": "Scan Time",
+              "timestampFormat": "2006/01/02 15:04:05",
+              "type": "timestamp"
+            },
+            {
+              "selector": "TOTAL_AMOUNT",
+              "text": "Tannhäuser Gate",
+              "type": "number"
+            }
+          ],
+          "computed_columns": [
+            {
+              "selector": "",
+              "text": "",
+              "type": "string"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "dea5xuen5apdsc"
+          },
+          "filters": [],
+          "format": "as-is",
+          "global_query_id": "",
+          "hide": false,
+          "parser": "backend",
+          "refId": "D",
+          "root_selector": "results.0",
+          "source": "url",
+          "summarizeBy": "",
+          "summarizeExpression": "",
+          "type": "json",
+          "url": "",
+          "url_options": {
+            "data": "",
+            "headers": [],
+            "method": "GET",
+            "params": [
+              {
+                "key": "Procedure",
+                "value": "dashboard_activity_by_minute"
+              },
+              {
+                "key": "admin",
+                "value": "true"
+              },
+              {
+                "key": "Parameters",
+                "value": "[\"Tannhäuser Gate\"]"
+              }
+            ]
+          }
+        },
+        {
+          "columns": [
+            {
+              "selector": "SCAN_TIMESTAMP_HHMM",
+              "text": "Scan Time",
+              "timestampFormat": "2006/01/02 15:04:05",
+              "type": "timestamp"
+            },
+            {
+              "selector": "TOTAL_AMOUNT",
+              "text": "Elevation Pass",
+              "type": "number"
+            }
+          ],
+          "computed_columns": [
+            {
+              "selector": "",
+              "text": "",
+              "type": "string"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "dea5xuen5apdsc"
+          },
+          "filters": [],
+          "format": "as-is",
+          "global_query_id": "",
+          "hide": false,
+          "parser": "backend",
+          "refId": "E",
+          "root_selector": "results.0",
+          "source": "url",
+          "summarizeBy": "",
+          "summarizeExpression": "",
+          "type": "json",
+          "url": "",
+          "url_options": {
+            "data": "",
+            "headers": [],
+            "method": "GET",
+            "params": [
+              {
+                "key": "Procedure",
+                "value": "dashboard_activity_by_minute"
+              },
+              {
+                "key": "admin",
+                "value": "true"
+              },
+              {
+                "key": "Parameters",
+                "value": "[\"Elevation Pass\"]"
+              }
+            ]
+          }
+        },
+        {
+          "columns": [
+            {
+              "selector": "SCAN_TIMESTAMP_HHMM",
+              "text": "Scan Time",
+              "timestampFormat": "2006/01/02 15:04:05",
+              "type": "timestamp"
+            },
+            {
+              "selector": "TOTAL_AMOUNT",
+              "text": "Horizon Bridge",
+              "type": "number"
+            }
+          ],
+          "computed_columns": [
+            {
+              "selector": "",
+              "text": "",
+              "type": "string"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "dea5xuen5apdsc"
+          },
+          "filters": [],
+          "format": "as-is",
+          "global_query_id": "",
+          "hide": false,
+          "parser": "backend",
+          "refId": "F",
+          "root_selector": "results.0",
+          "source": "url",
+          "summarizeBy": "",
+          "summarizeExpression": "",
+          "type": "json",
+          "url": "",
+          "url_options": {
+            "data": "",
+            "headers": [],
+            "method": "GET",
+            "params": [
+              {
+                "key": "Procedure",
+                "value": "dashboard_activity_by_minute"
+              },
+              {
+                "key": "admin",
+                "value": "true"
+              },
+              {
+                "key": "Parameters",
+                "value": "[\"Horizon Bridge\"]"
+              }
+            ]
+          }
+        }
+      ],
+      "title": "Toll Revenue By Minute",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "dea5xuen5apdsc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 18,
+        "y": 0
+      },
+      "id": 44,
+      "options": {
+        "displayLabels": [
+          "name"
+        ],
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "percent"
+          ]
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^SCAN_COUNT$/",
+          "values": true
+        },
+        "tooltip": {
+          "maxWidth": 2,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "columns": [],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "dea5xuen5apdsc"
+          },
+          "filters": [],
+          "format": "as-is",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "results.0",
+          "source": "url",
+          "type": "json",
+          "url": "",
+          "url_options": {
+            "data": "",
+            "method": "GET",
+            "params": [
+              {
+                "key": "admin",
+                "value": "true"
+              },
+              {
+                "key": "Procedure",
+                "value": "dashboard_vehicle_classes_freq"
+              }
+            ]
+          }
+        }
+      ],
+      "title": "Vehicle types scanned",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "SCAN_COUNT",
+                "VEHICLE_CLASS"
+              ]
+            }
+          }
+        },
+        {
+          "id": "sortBy",
+          "options": {
+            "fields": {},
+            "sort": [
+              {
+                "field": "VEHICLE_CLASS"
+              }
+            ]
+          }
+        }
+      ],
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "dea5xuen5apdsc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "decimals": 2,
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Locations TOTAL_TOLL_AMOUNT"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "currencyUSD"
+              },
+              {
+                "id": "displayName",
+                "value": "Total gross"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "LATITUDE"
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": true,
+                  "viz": false
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "LONGITUDE"
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": true,
+                  "viz": false
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Invalid Scans INVALID_COUNT"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Scan errors"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Locations TOLL_LOC"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Location"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Invalid Scans TOLL_LOC"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Location"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 18,
+        "x": 0,
+        "y": 4
+      },
+      "id": 4,
+      "options": {
+        "basemap": {
+          "config": {
+            "server": "streets",
+            "showLabels": true,
+            "theme": "auto"
+          },
+          "name": "Layer 0",
+          "opacity": 1,
+          "tooltip": false,
+          "type": "esri-xyz"
+        },
+        "controls": {
+          "mouseWheelZoom": false,
+          "showAttribution": true,
+          "showDebug": false,
+          "showMeasure": false,
+          "showScale": false,
+          "showZoom": false
+        },
+        "layers": [
+          {
+            "config": {
+              "showLegend": true,
+              "style": {
+                "color": {
+                  "fixed": "dark-green"
+                },
+                "opacity": 0.4,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "field": "TOTAL_TOLL_AMOUNT",
+                  "fixed": 5,
+                  "max": 24,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "filterData": {
+              "id": "byRefId",
+              "options": "Locations"
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "name": "Locations",
+            "opacity": 1,
+            "tooltip": true,
+            "type": "markers"
+          },
+          {
+            "config": {
+              "showLegend": true,
+              "style": {
+                "color": {
+                  "fixed": "red"
+                },
+                "opacity": 1,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "field": "INVALID_COUNT",
+                  "fixed": 5,
+                  "max": 12,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "filterData": {
+              "id": "byRefId",
+              "options": "Invalid Scans"
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "name": "Scan errors",
+            "opacity": 0.4,
+            "tooltip": true,
+            "type": "markers"
+          }
+        ],
+        "tooltip": {
+          "mode": "details"
+        },
+        "view": {
+          "allLayers": true,
+          "id": "north-america",
+          "lat": 40,
+          "lon": -100,
+          "shared": false,
+          "zoom": 4
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "columns": [],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "dea5xuen5apdsc"
+          },
+          "filters": [],
+          "format": "as-is",
+          "global_query_id": "",
+          "hide": false,
+          "parser": "backend",
+          "refId": "Locations",
+          "root_selector": "results.0",
+          "source": "url",
+          "type": "json",
+          "url": "",
+          "url_options": {
+            "data": "",
+            "method": "GET",
+            "params": [
+              {
+                "key": "Procedure",
+                "value": "dashboard_gross_map"
+              },
+              {
+                "key": "admin",
+                "value": "true"
+              }
+            ]
+          }
+        },
+        {
+          "columns": [],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "dea5xuen5apdsc"
+          },
+          "filters": [],
+          "format": "as-is",
+          "global_query_id": "",
+          "hide": false,
+          "parser": "backend",
+          "refId": "Invalid Scans",
+          "root_selector": "results.0",
+          "source": "url",
+          "type": "json",
+          "url": "",
+          "url_options": {
+            "data": "",
+            "method": "GET",
+            "params": [
+              {
+                "key": "Procedure",
+                "value": "@AdHoc"
+              },
+              {
+                "key": "admin",
+                "value": "true"
+              },
+              {
+                "key": "Parameters",
+                "value": "[\"SELECT     l.toll_loc,     l.latitude,     l.longitude,     hgl.invalid_count AS invalid_count FROM     TOLL_LOCATIONS l         LEFT JOIN     invalid_scans_locations hgl     ON         l.toll_loc = hgl.toll_loc ORDER BY     l.toll_loc\"]"
+              }
+            ]
+          }
+        }
+      ],
+      "title": "",
+      "transformations": [
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "number",
+                "targetField": "INVALID_COUNT"
+              },
+              {
+                "destinationType": "number",
+                "targetField": "TOTAL_TOLL_AMOUNT"
+              }
+            ],
+            "fields": {}
+          }
+        }
+      ],
+      "type": "geomap"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 6
+      },
+      "id": 39,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "sum(rate(voltdb_procedure_invoked_total{namespace=\"$cluster\",host_name=~\"$host\"}[$__rate_interval]))",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Toll Events Processed Per Second",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 10
+      },
+      "id": 40,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "voltdb_cpu_load_percent{namespace=\"$cluster\",host_name=~\"$host\"}",
+          "format": "time_series",
+          "instant": false,
+          "interval": "",
+          "legendFormat": "VoltDB CPU",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "voltsp_cpu_load_os_percent",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "legendFormat": "Volt Streams CPU",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 45
+              },
+              {
+                "color": "#6ED0E0",
+                "value": 75
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 14
+      },
+      "id": 42,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "max(voltdb_memory_rss_bytes{namespace=\"$cluster\",host_name=~\"$host\"}/ on (instance) voltdb_memory_physicalmemory_bytes{namespace=\"$cluster\",host_name=~\"$host\"})",
+          "format": "time_series",
+          "instant": false,
+          "interval": "",
+          "legendFormat": "VoltDB Ram",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "max(voltsp_memory_java_heap_used_bytes/ on (instance)voltsp_memory_java_heap_max_bytes)",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "legendFormat": "Volt Streams Ram",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "",
+      "type": "gauge"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 18
+      },
+      "id": 37,
+      "panels": [
+        {
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 2,
+            "w": 24,
+            "x": 0,
+            "y": 24
+          },
+          "id": 43,
+          "options": {
+            "code": {
+              "language": "plaintext",
+              "showLineNumbers": false,
+              "showMiniMap": false
+            },
+            "content": "> **_NOTE:_** Pipeline view takes few minutes to load due to Prometheus gathering data.",
+            "mode": "markdown"
+          },
+          "pluginVersion": "11.3.0",
+          "title": "",
+          "transparent": true,
+          "type": "text"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 26
+          },
+          "id": 38,
+          "options": {
+            "edges": {},
+            "nodes": {
+              "arcs": []
+            }
+          },
+          "pluginVersion": "11.3.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "disableTextWrap": false,
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "sum by (id, title, type, color, icon) (voltsp_node_graph_info{})",
+              "format": "table",
+              "fullMetaSearch": false,
+              "hide": false,
+              "includeNullMetadata": true,
+              "instant": true,
+              "legendFormat": "__auto",
+              "range": false,
+              "refId": "nodes",
+              "useBackend": false
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "disableTextWrap": false,
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "sum by (id, source, target) (voltsp_node_graph_edges_info{})",
+              "format": "table",
+              "fullMetaSearch": false,
+              "hide": false,
+              "includeNullMetadata": true,
+              "instant": true,
+              "legendFormat": "__auto",
+              "range": false,
+              "refId": "edges",
+              "useBackend": false
+            }
+          ],
+          "title": "",
+          "transformations": [
+            {
+              "id": "filterByValue",
+              "options": {
+                "filters": [
+                  {
+                    "config": {
+                      "id": "isNull",
+                      "options": {}
+                    },
+                    "fieldName": "target"
+                  },
+                  {
+                    "config": {
+                      "id": "equal",
+                      "options": {
+                        "value": ""
+                      }
+                    },
+                    "fieldName": "target"
+                  }
+                ],
+                "match": "any",
+                "type": "exclude"
+              }
+            }
+          ],
+          "type": "nodeGraph"
+        }
+      ],
+      "title": "Pipeline",
+      "type": "row"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 19
+      },
+      "id": 9,
+      "panels": [],
+      "title": "Activity",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "dea5xuen5apdsc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMin": 0,
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "currencyUSD"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "SCAN_TIMESTAMP_HHMM"
+            },
+            "properties": []
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 14,
+        "x": 0,
+        "y": 20
+      },
+      "id": 6,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "SCAN_TIMESTAMP_HHMM",
+              "text": "Scan Time",
+              "timestampFormat": "2006/01/02 15:04:05",
+              "type": "timestamp"
+            },
+            {
+              "selector": "TOTAL_AMOUNT",
+              "text": "Nexus Crossing",
+              "type": "number"
+            }
+          ],
+          "computed_columns": [
+            {
+              "selector": "",
+              "text": "",
+              "type": "string"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "dea5xuen5apdsc"
+          },
+          "filters": [],
+          "format": "as-is",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "results.0",
+          "source": "url",
+          "summarizeBy": "",
+          "summarizeExpression": "",
+          "type": "json",
+          "url": "",
+          "url_options": {
+            "data": "",
+            "headers": [],
+            "method": "GET",
+            "params": [
+              {
+                "key": "Procedure",
+                "value": "dashboard_activity_by_minute"
+              },
+              {
+                "key": "admin",
+                "value": "true"
+              },
+              {
+                "key": "Parameters",
+                "value": "[\"Nexus Crossing\"]"
+              }
+            ]
+          }
+        },
+        {
+          "columns": [
+            {
+              "selector": "SCAN_TIMESTAMP_HHMM",
+              "text": "Scan Time",
+              "timestampFormat": "2006/01/02 15:04:05",
+              "type": "timestamp"
+            },
+            {
+              "selector": "TOTAL_AMOUNT",
+              "text": "Quantum Tunnel",
+              "type": "number"
+            }
+          ],
+          "computed_columns": [
+            {
+              "selector": "",
+              "text": "",
+              "type": "string"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "dea5xuen5apdsc"
+          },
+          "filters": [],
+          "format": "as-is",
+          "global_query_id": "",
+          "hide": false,
+          "parser": "backend",
+          "refId": "B",
+          "root_selector": "results.0",
+          "source": "url",
+          "summarizeBy": "",
+          "summarizeExpression": "",
+          "type": "json",
+          "url": "",
+          "url_options": {
+            "data": "",
+            "headers": [],
+            "method": "GET",
+            "params": [
+              {
+                "key": "Procedure",
+                "value": "dashboard_activity_by_minute"
+              },
+              {
+                "key": "admin",
+                "value": "true"
+              },
+              {
+                "key": "Parameters",
+                "value": "[\"Quantum Tunnel\"]"
+              }
+            ]
+          }
+        },
+        {
+          "columns": [
+            {
+              "selector": "SCAN_TIMESTAMP_HHMM",
+              "text": "Scan Time",
+              "timestampFormat": "2006/01/02 15:04:05",
+              "type": "timestamp"
+            },
+            {
+              "selector": "TOTAL_AMOUNT",
+              "text": "Skyline Toll Plaza",
+              "type": "number"
+            }
+          ],
+          "computed_columns": [
+            {
+              "selector": "",
+              "text": "",
+              "type": "string"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "dea5xuen5apdsc"
+          },
+          "filters": [],
+          "format": "as-is",
+          "global_query_id": "",
+          "hide": false,
+          "parser": "backend",
+          "refId": "C",
+          "root_selector": "results.0",
+          "source": "url",
+          "summarizeBy": "",
+          "summarizeExpression": "",
+          "type": "json",
+          "url": "",
+          "url_options": {
+            "data": "",
+            "headers": [],
+            "method": "GET",
+            "params": [
+              {
+                "key": "Procedure",
+                "value": "dashboard_activity_by_minute"
+              },
+              {
+                "key": "admin",
+                "value": "true"
+              },
+              {
+                "key": "Parameters",
+                "value": "[\"Skyline Toll Plaza\"]"
+              }
+            ]
+          }
+        }
+      ],
+      "title": "Toll Revenue By Minute",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "includeByName": {},
+            "indexByName": {
+              "Amount": 1,
+              "Scan Time": 0
+            },
+            "renameByName": {
+              "TOLL_MULTIP": "Toll multiplier",
+              "VEHICLE_CLASS": "Vehicle"
+            }
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "dea5xuen5apdsc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "currencyUSD"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byType",
+              "options": "number"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "currencyUSD"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 10,
+        "x": 14,
+        "y": 20
+      },
+      "id": 5,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "columns": [],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "dea5xuen5apdsc"
+          },
+          "filters": [],
+          "format": "as-is",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "results.0",
+          "source": "url",
+          "type": "json",
+          "url": "",
+          "url_options": {
+            "data": "",
+            "headers": [],
+            "method": "GET",
+            "params": [
+              {
+                "key": "Procedure",
+                "value": "dashboard_gross"
+              },
+              {
+                "key": "admin",
+                "value": "true"
+              }
+            ]
+          }
+        }
+      ],
+      "title": "",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "includeByName": {},
+            "indexByName": {
+              "TOLL_MULTIP": 1,
+              "VEHICLE_CLASS": 0
+            },
+            "renameByName": {
+              "TOLL_LOC": "Location",
+              "TOLL_MULTIP": "Toll multiplier",
+              "TOTAL_TOLL_AMOUNT": "Total Toll Amount",
+              "VEHICLE_CLASS": "Vehicle"
+            }
+          }
+        },
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "number",
+                "targetField": "TOTAL_TOLL_AMOUNT"
+              }
+            ],
+            "fields": {}
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "table"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 29
+      },
+      "id": 10,
+      "panels": [],
+      "title": "Reference Data",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "dea5xuen5apdsc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Fare"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "currencyUSD"
+              },
+              {
+                "id": "custom.width",
+                "value": 80
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Gross"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "currencyUSD"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "TOTAL_COUNT"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Traffic"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "LATITUDE"
+            },
+            "properties": [
+              {
+                "id": "custom.hidden",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "LONGITUDE"
+            },
+            "properties": [
+              {
+                "id": "custom.hidden",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Invalid scan percent"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percentunit"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Invalid scans"
+            },
+            "properties": [
+              {
+                "id": "custom.hidden",
+                "value": true
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 5,
+        "x": 0,
+        "y": 30
+      },
+      "id": 2,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": false,
+        "sortBy": []
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "columns": [],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "dea5xuen5apdsc"
+          },
+          "filters": [],
+          "format": "as-is",
+          "global_query_id": "",
+          "hide": false,
+          "parser": "backend",
+          "refId": "Fares",
+          "root_selector": "results.0",
+          "source": "url",
+          "type": "json",
+          "url": "",
+          "url_options": {
+            "data": "",
+            "headers": [],
+            "method": "GET",
+            "params": [
+              {
+                "key": "Procedure",
+                "value": "dashboard_fares"
+              },
+              {
+                "key": "admin",
+                "value": "true"
+              }
+            ]
+          }
+        },
+        {
+          "columns": [],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "dea5xuen5apdsc"
+          },
+          "filters": [],
+          "format": "as-is",
+          "global_query_id": "",
+          "hide": false,
+          "parser": "backend",
+          "refId": "Invalid scans",
+          "root_selector": "results.0",
+          "source": "url",
+          "type": "json",
+          "url": "",
+          "url_options": {
+            "data": "",
+            "headers": [],
+            "method": "GET",
+            "params": [
+              {
+                "key": "Procedure",
+                "value": "dashboard_invalid_scans"
+              },
+              {
+                "key": "admin",
+                "value": "true"
+              }
+            ]
+          }
+        }
+      ],
+      "title": "Fares",
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "LATITUDE": false,
+              "LONGITUDE": false,
+              "TOLL_LOC_ID": true,
+              "TOLL_LOC_STATUS": true
+            },
+            "includeByName": {},
+            "indexByName": {
+              "BASE_FARE": 1,
+              "TOLL_LOC": 0,
+              "TOLL_LOC_ID": 2,
+              "TOLL_LOC_STATUS": 3
+            },
+            "renameByName": {
+              "BASE_FARE": "Fare",
+              "INVALID_COUNT": "Invalid scans",
+              "TOLL_LOC": "Location",
+              "TOLL_LOC_STATUS": "",
+              "TOTAL_TOLL_AMOUNT": "Gross"
+            }
+          }
+        },
+        {
+          "id": "sortBy",
+          "options": {
+            "fields": {},
+            "sort": [
+              {
+                "field": "Gross"
+              }
+            ]
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Invalid scan percent",
+            "binary": {
+              "left": {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Invalid scans"
+                }
+              },
+              "operator": "/",
+              "right": {
+                "matcher": {
+                  "id": "byName",
+                  "options": "TOTAL_COUNT"
+                }
+              }
+            },
+            "mode": "binary",
+            "reduce": {
+              "include": [
+                "TOTAL_COUNT",
+                "Invalid scans"
+              ],
+              "reducer": "last"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "dea5xuen5apdsc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "TOLL_MULTIP"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "none"
+              },
+              {
+                "id": "custom.width",
+                "value": 125
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 5,
+        "x": 5,
+        "y": 30
+      },
+      "id": 1,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "columns": [],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "dea5xuen5apdsc"
+          },
+          "filters": [],
+          "format": "as-is",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "results.0",
+          "source": "url",
+          "type": "json",
+          "url": "",
+          "url_options": {
+            "data": "",
+            "headers": [],
+            "method": "GET",
+            "params": [
+              {
+                "key": "Procedure",
+                "value": "dashboard_vehicle_classes"
+              },
+              {
+                "key": "admin",
+                "value": "true"
+              }
+            ]
+          }
+        }
+      ],
+      "title": "Vehicle Classes",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "includeByName": {},
+            "indexByName": {
+              "TOLL_MULTIP": 1,
+              "VEHICLE_CLASS": 0
+            },
+            "renameByName": {
+              "TOLL_MULTIP": "Toll multiplier",
+              "VEHICLE_CLASS": "Vehicle"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "dea5xuen5apdsc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "left",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false,
+            "width": 150
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "currencyUSD"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 5,
+        "x": 10,
+        "y": 30
+      },
+      "id": 8,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "TOLL_LOC",
+              "text": "Location",
+              "type": "string"
+            },
+            {
+              "selector": "BASE_FARE",
+              "text": "Base Fare",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "dea5xuen5apdsc"
+          },
+          "filters": [],
+          "format": "as-is",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "results.0",
+          "source": "url",
+          "type": "json",
+          "url": "",
+          "url_options": {
+            "data": "",
+            "headers": [],
+            "method": "GET",
+            "params": [
+              {
+                "key": "Procedure",
+                "value": "dashboard_fares"
+              },
+              {
+                "key": "admin",
+                "value": "true"
+              }
+            ]
+          }
+        }
+      ],
+      "title": "Fares",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "includeByName": {},
+            "indexByName": {
+              "TOLL_MULTIP": 1,
+              "VEHICLE_CLASS": 0
+            },
+            "renameByName": {
+              "TOLL_MULTIP": "Toll multiplier",
+              "VEHICLE_CLASS": "Vehicle"
+            }
+          }
+        },
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "string"
+              }
+            ],
+            "fields": {}
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "dea5xuen5apdsc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "left",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false,
+            "width": 150
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "string"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 5,
+        "x": 15,
+        "y": 30
+      },
+      "id": 7,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "Balance"
+          }
+        ]
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "ACCOUNT_ID",
+              "text": "Account",
+              "type": "string"
+            },
+            {
+              "selector": "BALANCE",
+              "text": "AC Balance",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "dea5xuen5apdsc"
+          },
+          "filters": [],
+          "format": "as-is",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "results.0",
+          "source": "url",
+          "type": "json",
+          "url": "",
+          "url_options": {
+            "data": "",
+            "headers": [],
+            "method": "GET",
+            "params": [
+              {
+                "key": "Procedure",
+                "value": "dashboard_top_10_accounts"
+              },
+              {
+                "key": "admin",
+                "value": "true"
+              }
+            ]
+          }
+        }
+      ],
+      "title": "Top accounts",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "includeByName": {},
+            "indexByName": {
+              "TOLL_MULTIP": 1,
+              "VEHICLE_CLASS": 0
+            },
+            "renameByName": {
+              "Account": "",
+              "TOLL_MULTIP": "Toll multiplier",
+              "VEHICLE_CLASS": "Vehicle"
+            }
+          }
+        },
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "string"
+              }
+            ],
+            "fields": {}
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "dea5xuen5apdsc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "left",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false,
+            "width": 150
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 4,
+        "x": 20,
+        "y": 30
+      },
+      "id": 35,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "A"
+          }
+        ]
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "PARAMETER_NAME",
+              "text": "Name",
+              "type": "string"
+            },
+            {
+              "selector": "PARAMETER_VALUE",
+              "text": "Param Value",
+              "type": "string"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "dea5xuen5apdsc"
+          },
+          "filters": [],
+          "format": "as-is",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "results.0",
+          "source": "url",
+          "type": "json",
+          "url": "",
+          "url_options": {
+            "data": "",
+            "headers": [],
+            "method": "GET",
+            "params": [
+              {
+                "key": "Procedure",
+                "value": "dashboard_parameters"
+              },
+              {
+                "key": "admin",
+                "value": "true"
+              }
+            ]
+          }
+        }
+      ],
+      "title": "Application Parameters",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "includeByName": {},
+            "indexByName": {
+              "TOLL_MULTIP": 1,
+              "VEHICLE_CLASS": 0
+            },
+            "renameByName": {
+              "TOLL_MULTIP": "Toll multiplier",
+              "VEHICLE_CLASS": "Vehicle"
+            }
+          }
+        },
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "string"
+              }
+            ],
+            "fields": {}
+          }
+        }
+      ],
+      "type": "table"
+    }
+  ],
+  "preload": false,
+  "refresh": "5s",
+  "schemaVersion": 40,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "text": "prometheus",
+          "value": "prometheus"
+        },
+        "hide": 2,
+        "label": "datasource",
+        "name": "datasource",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "type": "datasource"
+      },
+      {
+        "current": {
+          "text": "dev-edition",
+          "value": "dev-edition"
+        },
+        "definition": "label_values(namespace)",
+        "hide": 2,
+        "label": "cluster",
+        "name": "cluster",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(namespace)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "allValue": ".*",
+        "current": {
+          "text": "All",
+          "value": "$__all"
+        },
+        "definition": "label_values({namespace=\"$cluster\"},host_name)",
+        "hide": 2,
+        "includeAll": true,
+        "label": "host",
+        "name": "host",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values({namespace=\"$cluster\"},host_name)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-30m",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Toll Collect",
+  "uid": "eebdy35f7fvggc",
+  "version": 13,
+  "weekStart": ""
+}
