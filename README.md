@@ -40,14 +40,15 @@ This directory contains the source code and executable java application (when co
 
 This directory contains the source and java classes (when compiled) of an ActiveSP stream pipeline to simulate the toll application at scale. The directory also includes custom java components that are referenced by the pipeline. This example of a stream processing pipeline is a limited implementation of the application’s business workflow, only processing vehicle information and leaving account charging as a future exercise. The pipeline consists of the following components:
 
+[TollCollectStream](https://github.com/VoltDB/TollCollectDemo/blob/master/TollCollectStreamPipeline/src/main/java/com/voltdb/tollcollect/pipeline/TollCollectStream.java)
 - Generator Source: a source operator that produces streams of synthetic data for the pipeline.  
 - Stateless processor: processor that converts a message into a format appropriate for sending to Volt.  
 - Volt Sink: a sink operator sending messages to a Volt Stored Procedure. In this case, to “ProcessPlate”.
 
 The directory also includes the following custom java that is used by the pipeline.
 
-- Record class: used by the generator to model messages created by the source.  
-- PlateRecordGenerator: custom logic to generate messages according to predefined algorithms.
+- [PlateRecord](https://github.com/VoltDB/TollCollectDemo/blob/master/TollCollectStreamPipeline/src/main/java/com/voltdb/tollcollect/pipeline/PlateRecord.java): used by the generator to model messages created by the source.  
+- [PlateRecordGenerator](https://github.com/VoltDB/TollCollectDemo/blob/master/TollCollectStreamPipeline/src/main/java/com/voltdb/tollcollect/pipeline/PlateRecordGenerator.java): custom logic to generate messages according to predefined algorithms.
 
 ### dev-edition-app
 
