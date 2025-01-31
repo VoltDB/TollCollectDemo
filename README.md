@@ -64,7 +64,7 @@ To get started, first ensure that you have the prerequisites. You will need:
 
 - Java JDK 17 or 21  
 - Docker Desktop  
-- Request a [license](https://www.voltactivedata.com/developer-edition/) to run the developer edition of Volt Active Data with ActiveSP
+- Request a [license](https://go.voltactivedata.com/l/916591/2025-01-31/c5yn4) to run the developer edition of Volt Active Data with ActiveSP
 
 ## Running the application
 
@@ -118,6 +118,6 @@ docker compose down -v
 
 ## Next Steps
 
-See more details about getting started with this application and the Volt Active Data Developer Edition by reviewing the [Developer Edition: Quick Start Guide](https://www.voltactivedata.com/developer-edition-quick-start-guide/)  
+See more details about getting started with this application and the Volt Active Data Developer Edition by reviewing the [Developer Edition: Quick Start Guide](https://go.voltactivedata.com/l/916591/2025-01-31/c5ynj)  
 
 
