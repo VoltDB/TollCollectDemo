@@ -29,7 +29,7 @@ This directory contains csv files to populate the database with initial data bef
 
 This directory contains the source code and java classes (when compiled) to handle server-side logic. The workflow is divided into two ACID transactions:
 
-- ProcessPlate: Looks up vehicle and plate information, calculates a toll based on location and vehicle details, records an audit entry of the scan, and conditionally forwards the toll to an external bill-by-mail application for non-account holders.  
+- [ProcessPlate](TollCollectProcedures/src/main/java/com/voltdb/tollcollect/procedures/ProcessPlate.java): Looks up vehicle and plate information, calculates a toll based on location and vehicle details, records an audit entry of the scan, and conditionally forwards the toll to an external bill-by-mail application for non-account holders.  
 - ChargeAccount: Looks up account information, deducts appropriate toll amount, triggers any necessary top up of account balances for account holders that have opted in, and records an audit entry of the account transaction.
 
 ### TollCollectClient
