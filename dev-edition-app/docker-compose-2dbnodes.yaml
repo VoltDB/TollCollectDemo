@@ -7,11 +7,11 @@
 #
 
 services:
-  voltdb:
+  voltdb01:
     image: ${VOLTDB_IMAGE}
     platform: linux/amd64
-    container_name: voltdb
-    hostname: voltdb
+    container_name: voltdb01
+    hostname: voltdb01
     command: /opt/voltdb/tools/kubernetes/test-entrypoint.sh
     healthcheck:
       test: [ "CMD-SHELL", "sqlcmd --query='exec @Ping;'" ]
@@ -24,16 +24,47 @@ services:
     expose:
       - "21212"
     environment:
-      VOLTDB_START_CONFIG: "--ignore=thp -c 1 -H voltdb --publicinterface=localhost"
+      VOLTDB_START_CONFIG: "--ignore=thp -c 2 -H voltdb01,voltdb02 --publicinterface=localhost"
       VOLTDB_LICENSE: "/etc/voltdb/license.xml"
       VOLTDB_CONFIG: /etc/voltdb/deployment.xml
       VOLTDB_SCHEMA: /etc/voltdb/voltdb-schemas
       VOLTDB_CLASSES: /etc/voltdb/voltdb-classes
-      VOLTDB_DIR: /voltdb
+      VOLTDB_DIR: /voltdb01
       VOLTDB_INIT_FORCE: true
     volumes:
       - ${LICENSE_FILE_PATH}:/etc/voltdb/license.xml
-      - ./resources/deployment.xml:/etc/voltdb/deployment.xml
+      - ./resources/deploymentk1.xml:/etc/voltdb/deployment.xml
+      - ./resources/voltdb-schemas:/etc/voltdb/voltdb-schemas
+      - ./resources/voltdb-apps:/etc/voltdb/voltdb-classes
+      - db:/voltdb
+
+  voltdb02:
+    image: ${VOLTDB_IMAGE}
+    platform: linux/amd64
+    container_name: voltdb02
+    hostname: voltdb02
+    command: /opt/voltdb/tools/kubernetes/test-entrypoint.sh
+    healthcheck:
+      test: [ "CMD-SHELL", "sqlcmd --query='exec @Ping;'" ]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+    ports:
+      - 31212:31212
+    expose:
+      - "31212"
+    environment:
+      VOLTDB_START_CONFIG: "--ignore=thp -c 2 -H voltdb01,voltdb02 --publicinterface=localhost  --client=:31212 --admin=:31211"
+      VOLTDB_LICENSE: "/etc/voltdb/license.xml"
+      VOLTDB_CONFIG: /etc/voltdb/deployment.xml
+      VOLTDB_SCHEMA: /etc/voltdb/voltdb-schemas
+      VOLTDB_CLASSES: /etc/voltdb/voltdb-classes
+      VOLTDB_DIR: /voltdb02
+      VOLTDB_INIT_FORCE: true
+    volumes:
+      - ${LICENSE_FILE_PATH}:/etc/voltdb/license.xml
+      - ./resources/deploymentk1.xml:/etc/voltdb/deployment.xml
       - ./resources/voltdb-schemas:/etc/voltdb/voltdb-schemas
       - ./resources/voltdb-apps:/etc/voltdb/voltdb-classes
       - db:/voltdb
@@ -44,12 +75,12 @@ services:
     container_name: voltdb-init
     hostname: voltdb-init
     command: >
-      sh -c "csvloader --skip=1 --reportdir=/etc/voltdb/data --servers=voltdb -f /etc/voltdb/data/accounts.csv ACCOUNTS && 
-             csvloader --skip=1 --reportdir=/etc/voltdb/data --servers=voltdb -f /etc/voltdb/data/known_vehicles.csv KNOWN_VEHICLES && 
-             csvloader --skip=1 --reportdir=/etc/voltdb/data --servers=voltdb -f /etc/voltdb/data/toll_locations.csv TOLL_LOCATIONS && 
-             csvloader --skip=1 --reportdir=/etc/voltdb/data --servers=voltdb -f /etc/voltdb/data/vehicle_types.csv VEHICLE_TYPES"
+      sh -c "csvloader --skip=1 --reportdir=/etc/voltdb/data --servers=voltdb01 -f /etc/voltdb/data/accounts.csv ACCOUNTS && 
+             csvloader --skip=1 --reportdir=/etc/voltdb/data --servers=voltdb01 -f /etc/voltdb/data/known_vehicles.csv KNOWN_VEHICLES && 
+             csvloader --skip=1 --reportdir=/etc/voltdb/data --servers=voltdb01 -f /etc/voltdb/data/toll_locations.csv TOLL_LOCATIONS && 
+             csvloader --skip=1 --reportdir=/etc/voltdb/data --servers=voltdb01 -f /etc/voltdb/data/vehicle_types.csv VEHICLE_TYPES"
     depends_on:
-      voltdb:
+      voltdb01:
         condition: service_healthy
     volumes:
       - ./resources/voltdb-apps:/etc/voltdb/data/
@@ -58,9 +89,9 @@ services:
     image: ${VMC_IMAGE}
     platform: linux/amd64
     container_name: vmc
-    command: java -jar /opt/voltdb/volt-vmc-svc.jar --servers=voltdb --port=21212
+    command: java -jar /opt/voltdb/volt-vmc-svc.jar --servers=voltdb01 --port=21212
     depends_on:
-      voltdb:
+      voltdb01:
         condition: service_healthy
     ports:
       - 8080:8080
@@ -110,7 +141,7 @@ services:
     image: ${VOLTSP_IMAGE}
     platform: linux/amd64
     depends_on:
-      voltdb:
+      voltdb01:
         condition: service_healthy
       voltdb-init:
         condition: service_completed_successfully
@@ -126,7 +157,7 @@ services:
       - JAVA_OPTS=-XX:InitialRAMPercentage=80.0 -XX:MinRAMPercentage=80.0 -XX:MaxRAMPercentage=80.0 --add-opens java.base/sun.nio.ch=ALL-UNNAMED -Dvoltsp.parallelism=1
     volumes:
       - ./resources/voltsp-apps:/volt-apps
-      - ./resources/voltsp-config-1dbnode.yaml:/etc/voltsp/configuration.yaml
+      - ./resources/voltsp-config-2dbnode.yaml:/etc/voltsp/configuration.yaml
       - ./resources/log4j2.xml:/etc/app/log4j2.xml
       - ${LICENSE_FILE_PATH}:/etc/voltsp/license.xml
 
