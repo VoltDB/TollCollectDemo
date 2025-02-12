@@ -1,0 +1,23 @@
+#
+# Copyright (C) 2025 Volt Active Data Inc.
+#
+# Use of this source code is governed by an MIT
+# license that can be found in the LICENSE file or at
+# https://opensource.org/licenses/MIT.
+#
+
+global:
+  scrape_interval: 30s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'voltdb'
+    static_configs:
+      - targets: [ 'voltdb01:11781','voltdb02:11781' ]
+        labels:
+          namespace: 'dev-edition'
+  - job_name: 'voltsp'
+    static_configs:
+      - targets: [ 'voltsp:11781' ]
+        labels:
+          namespace: 'dev-edition'
