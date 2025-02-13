@@ -45,6 +45,11 @@ public class ChargeAccount extends VoltProcedure {
     );
 
 
+    // Insert into bill_by_mail_export stream
+    public final SQLStmt exportBillByMail = new SQLStmt(
+            "INSERT INTO bill_by_mail_export VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
+    );  
+
     public VoltTable[] run(long scanId,
                            long scanTimestamp,
                            String location,
@@ -113,17 +118,17 @@ public class ChargeAccount extends VoltProcedure {
             finalTotalAmount = txFeeAmount.add(tollAmount);
 
             // Send to bill-by-mail export stream. Separate export stream recommended to avoid MP transaction.
-//            voltQueueSQL(exportBillByMail,
-//                    scanID,
-//                    scanTimestamp,
-//                    plateNum,
-//                    location,
-//                    lane,
-//                    tollAmount,
-//                    "INSUFFICIENT_BALANCE",
-//                    null,
-//                    txFeeAmount,
-//                    finalTotalAmount);
+            voltQueueSQL(exportBillByMail,
+                    scanId,
+                    scanTimestamp,
+                    plateNum,
+                    location,
+                    lane,
+                    tollAmount,
+                    "INSUFFICIENT_BALANCE",
+                    null,
+                    txFeeAmount,
+                    finalTotalAmount);
 
         }
 
