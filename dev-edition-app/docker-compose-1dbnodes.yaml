@@ -33,7 +33,7 @@ services:
       VOLTDB_INIT_FORCE: true
     volumes:
       - ${LICENSE_FILE_PATH}:/etc/voltdb/license.xml
-      - ./resources/deployment.xml:/etc/voltdb/deployment.xml
+      - ./resources/deploymentk0.xml:/etc/voltdb/deployment.xml
       - ./resources/voltdb-schemas:/etc/voltdb/voltdb-schemas
       - ./resources/voltdb-apps:/etc/voltdb/voltdb-classes
       - db:/voltdb
