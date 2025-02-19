@@ -21,8 +21,10 @@ services:
       timeout: 10s
     ports:
       - 21212:21212
+      - 9092:9092
     expose:
       - "21212"
+      - "9092"
     environment:
       VOLTDB_START_CONFIG: "--ignore=thp -c 1 -H voltdb --publicinterface=localhost"
       VOLTDB_LICENSE: "/etc/voltdb/license.xml"
@@ -73,7 +75,7 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      - ./resources/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./resources/prometheus-1dbnode.yml:/etc/prometheus/prometheus.yml
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--log.level=error'

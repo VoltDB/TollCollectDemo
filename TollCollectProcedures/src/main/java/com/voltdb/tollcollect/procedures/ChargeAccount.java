@@ -29,7 +29,7 @@ public class ChargeAccount extends VoltProcedure {
     );
 
     public final SQLStmt exportTopUp = new SQLStmt(
-            "INSERT INTO top_up_export VALUES (?, ?, ?, ?);"
+            "INSERT INTO top_up_stream VALUES (?, ?, ?, ?);"
     );
 
     public final SQLStmt updateBalance = new SQLStmt(
@@ -47,7 +47,7 @@ public class ChargeAccount extends VoltProcedure {
 
     // Insert into bill_by_mail_export stream
     public final SQLStmt exportBillByMail = new SQLStmt(
-            "INSERT INTO bill_by_mail_export VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
+            "INSERT INTO bill_by_mail_stream VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
     );  
 
     public VoltTable[] run(long scanId,
@@ -89,7 +89,7 @@ public class ChargeAccount extends VoltProcedure {
             // Process auto top-up
             voltQueueSQL(addTopUpAmount, topup_amount, accountId);
 
-            // Send to top-up export stream to charge payment method. Assume successful.
+            // Send to top-up stream to charge payment method. Assume successful.
             voltQueueSQL(exportTopUp,
                     acct_tx_id,
                     acct_tx_timestamp,

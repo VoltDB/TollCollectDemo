@@ -104,7 +104,11 @@ PARTITION TABLE ACCOUNT_HISTORY ON COLUMN account_id;
 -- systems, and/or writing to Volt topics for external consumers
 -- Data will not persist after processing
 
-CREATE STREAM bill_by_mail_export PARTITION ON COLUMN plate_num EXPORT TO TARGET bill_by_mail_service (
+CREATE STREAM bill_by_mail_stream 
+PARTITION ON COLUMN plate_num 
+EXPORT TO TOPIC bill_by_mail_topic
+WITH KEY (scan_id) 
+(
   scan_id           BIGINT           NOT NULL,
   scan_timestamp    TIMESTAMP         NOT NULL,
   plate_num         VARCHAR(20)       NOT NULL, --String containing vehicle registration plate
@@ -118,7 +122,11 @@ CREATE STREAM bill_by_mail_export PARTITION ON COLUMN plate_num EXPORT TO TARGET
 );
 
 
-CREATE STREAM top_up_export PARTITION ON COLUMN account_id EXPORT TO TARGET top_up_service (
+CREATE STREAM top_up_stream
+PARTITION ON COLUMN account_id 
+EXPORT TO TOPIC top_up_topic
+WITH KEY (account_id)
+(
   acct_tx_id        BIGINT           NOT NULL,
   acct_tx_timestamp TIMESTAMP         NOT NULL,
   account_id        INTEGER           NOT NULL,
@@ -251,4 +259,3 @@ CREATE INDEX sh_ttl_idx ON scan_history(scan_timestamp) ;
 -- All statements from the start to here succeed or fail as a unit..
 
 END_OF_BATCH
-

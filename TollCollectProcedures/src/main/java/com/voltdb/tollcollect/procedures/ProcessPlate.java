@@ -36,9 +36,9 @@ public class ProcessPlate extends VoltProcedure {
             "WHERE plate_num = ? AND active = 1;"
     );
 
-    // Insert into bill_by_mail_export stream
+    // Insert into bill_by_mail_stream stream
     public final SQLStmt exportBillByMail = new SQLStmt(
-            "INSERT INTO bill_by_mail_export VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
+            "INSERT INTO bill_by_mail_stream VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
     );
 
     // SQL statement to insert scan history
@@ -135,7 +135,7 @@ public class ProcessPlate extends VoltProcedure {
             totalAmount = tollAmount.add(scanFeeAmount);
             tollReason = "UNKNOWN_VEHICLE";
 
-            // Insert into bill_by_mail_export stream
+            // Insert into bill_by_mail_stream stream
             voltQueueSQL(exportBillByMail,
                     scanId, new java.util.Date(scanTimestamp), plateNum, location, lane,
                     tollAmount, tollReason, scanFeeAmount, null, tollAmount

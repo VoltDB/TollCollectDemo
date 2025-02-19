@@ -21,8 +21,10 @@ services:
       timeout: 10s
     ports:
       - 21212:21212
+      - 9092:9092
     expose:
       - "21212"
+      - "9092"
     environment:
       VOLTDB_START_CONFIG: "--ignore=thp -c 3 -H voltdb01,voltdb02,voltdb03 --publicinterface=localhost"
       VOLTDB_LICENSE: "/etc/voltdb/license.xml"
@@ -52,10 +54,12 @@ services:
       timeout: 10s
     ports:
       - 31212:31212
+      - 39092:39092
     expose:
       - "31212"
+      - "39092"
     environment:
-      VOLTDB_START_CONFIG: "--ignore=thp -c 3 -H voltdb01,voltdb02,voltdb03 --publicinterface=localhost  --client=:31212 --admin=:31211"
+      VOLTDB_START_CONFIG: "--ignore=thp -c 3 -H voltdb01,voltdb02,voltdb03 --publicinterface=localhost  --client=:31212 --admin=:31211 --topicsport=39092"
       VOLTDB_LICENSE: "/etc/voltdb/license.xml"
       VOLTDB_CONFIG: /etc/voltdb/deployment.xml
       VOLTDB_SCHEMA: /etc/voltdb/voltdb-schemas
@@ -83,10 +87,12 @@ services:
       timeout: 10s
     ports:
       - 41212:41212
+      - 49092:49092
     expose:
       - "41212"
+      - "49092"
     environment:
-      VOLTDB_START_CONFIG: "--ignore=thp -c 3 -H voltdb01,voltdb02,voltdb03 --publicinterface=localhost  --client=:41212 --admin=:41211"
+      VOLTDB_START_CONFIG: "--ignore=thp -c 3 -H voltdb01,voltdb02,voltdb03 --publicinterface=localhost  --client=:41212 --admin=:41211 --topicsport=49092"
       VOLTDB_LICENSE: "/etc/voltdb/license.xml"
       VOLTDB_CONFIG: /etc/voltdb/deployment.xml
       VOLTDB_SCHEMA: /etc/voltdb/voltdb-schemas
@@ -135,7 +141,7 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      - ./resources/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./resources/prometheus-3dbnode.yml:/etc/prometheus/prometheus.yml
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--log.level=error'

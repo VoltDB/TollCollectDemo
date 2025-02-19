@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+
+    Copyright (C) 2025 Volt Active Data Inc.
+
+    Use of this source code is governed by an MIT
+    license that can be found in the LICENSE file or at
+    https://opensource.org/licenses/MIT.
+
+-->
+<deployment>
+    <cluster kfactor="1" sitesperhost="4"/>
+    <snapshot enabled="false"/>
+    <commandlog enabled="false"/>
+    <metrics enabled="true" interval="15s"/>
+    <topics enabled="true">
+        <broker>
+            <property name="network.thread.count">8</property>
+        </broker>
+        <topic name="send_to_processplate" procedure="ProcessPlate"/>
+        <topic name="send_to_addtobalance" procedure="AddToBalance"/>
+        <topic name="top_up_topic" retention="1hr"/>
+        <topic name="bill_by_mail_topic" retention="1hr"/>
+    </topics>
+</deployment>
