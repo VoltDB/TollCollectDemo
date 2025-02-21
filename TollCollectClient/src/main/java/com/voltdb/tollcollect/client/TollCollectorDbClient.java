@@ -51,10 +51,16 @@ public class TollCollectorDbClient implements AutoCloseable {
         callProcedureSynchronously("ProcessPlate", scanTimestamp, location, lane, plateNum, vehicleClass);
     }
 
-    // Method used to call AdHoc SQL and return query result as VoltTable
-    VoltTable callAdHocSQL(Object... arguments) throws IOException, ProcCallException {
-        // Call AdHoc procedure by specifying "@AdHoc" as first parameter, followed by string containing SQL code and parameters
-        return callProcedureSynchronously("@AdHoc", arguments)[0];
+    // Method used to get plate history and return query result as VoltTable
+    VoltTable getPlateHistory(String plateNum, String location, String lane, long rowCount) throws IOException, ProcCallException {
+        // Call PlateHistory procedure with synchronous completion and return response into ClientResponse object
+        return callProcedureSynchronously("GetPlateHistory", plateNum, location, lane, rowCount)[0];
+    }
+
+    // Method used to get account history and return query result as VoltTable
+    VoltTable getAccountHistory(long accountId, long rowCount) throws IOException, ProcCallException {
+        // Call PlateHistory procedure with synchronous completion and return response into ClientResponse object
+        return callProcedureSynchronously("GetAccountHistory", accountId, rowCount)[0];
     }
 
     // Method used to charge account

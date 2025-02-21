@@ -63,11 +63,9 @@ public class TollCollector {
                 System.out.println("Checking Entry...");
 
                 VoltTable scanResult;
-                // Perform Volt AdHoc SQL query, collect results, and print results with a well formatted string.
+                // Perform Volt query, collect results, and print results with a well formatted string.
                 try {
-                    scanResult = tc.callAdHocSQL("SELECT * FROM SCAN_HISTORY WHERE plate_num = ? " +
-                                                 "AND toll_loc = ? AND toll_lane_num = ? " +
-                                                 "ORDER BY scan_timestamp DESC LIMIT 1", plateNum, location, lane);
+                    scanResult = tc.getPlateHistory(plateNum, location, lane,1);
                     System.out.println(scanResult.toFormattedString());
                 } catch (IOException | ProcCallException e) {
                     System.err.println("Error retrieving data: " + e.getMessage());
@@ -90,17 +88,15 @@ public class TollCollector {
                     }
 
                     System.out.println("Checking Entry...");
-                    // Perform Volt AdHoc SQL query, collect results, and print results with a well formatted string.
+                    // Perform Volt query, collect results, and print results with a well formatted string.
                     try {
-                        VoltTable chargeResult = tc.callAdHocSQL("SELECT * FROM ACCOUNT_HISTORY WHERE plate_num = ? " +
-                                                                 "AND toll_loc = ? AND toll_lane_num = ? " +
-                                                                 "ORDER BY acct_tx_timestamp DESC LIMIT 1", plateNum, location, lane);
+                        VoltTable chargeResult = tc.getAccountHistory(accountId, 10);
                         System.out.println(chargeResult.toFormattedString());
                     } catch (IOException | ProcCallException e) {
                         System.err.println("Error retrieving data: " + e.getMessage());
                     }
                 } else {
-                    System.out.println("No account transaction needed");
+                    System.out.println("No account found");
                 }
             }
         } catch (RuntimeException e) {

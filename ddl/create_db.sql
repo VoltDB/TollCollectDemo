@@ -94,7 +94,7 @@ CREATE TABLE ACCOUNT_HISTORY (
    tx_fee_amount     DECIMAL,
    total_amount      DECIMAL           NOT NULL,
    tx_type           VARCHAR(6)        NOT NULL, --DEBIT for tolls, CREDIT for top ups.
---  PRIMARY KEY (acct_tx_id)
+PRIMARY KEY (account_id, acct_tx_id)
 );
 PARTITION TABLE ACCOUNT_HISTORY ON COLUMN account_id;
 
@@ -170,6 +170,18 @@ GROUP BY TRUNCATE(MINUTE, SCAN_TIMESTAMP), TOLL_LOC;
 CREATE PROCEDURE AddToBalance PARTITION ON TABLE ACCOUNTS COLUMN account_id PARAMETER 1 AS
 UPDATE ACCOUNTS SET balance = balance + ?
 WHERE account_id = ?;
+
+CREATE PROCEDURE GetPlateHistory PARTITION ON TABLE scan_history COLUMN plate_num AS
+SELECT * FROM SCAN_HISTORY 
+WHERE plate_num = ?  
+AND toll_loc = ? 
+AND toll_lane_num = ? 
+ORDER BY scan_timestamp, plate_num, scan_id DESC LIMIT ?;
+
+CREATE PROCEDURE GetAccountHistory AS
+SELECT * FROM ACCOUNT_HISTORY 
+WHERE account_id = ? 
+ORDER BY acct_tx_timestamp, acct_tx_id DESC LIMIT ?;
 
 ------------- SQL STORED PROCEDURES USED BY THE DASHBOARD ------------------------
 
