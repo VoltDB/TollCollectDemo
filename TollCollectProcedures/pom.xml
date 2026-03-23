@@ -20,14 +20,17 @@
     </parent>
 
     <artifactId>TollCollectProcedures</artifactId>
-    <version>1.0-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
             <groupId>org.voltdb</groupId>
-            <artifactId>voltdb</artifactId>
-            <version>10.1.1</version>
-            <scope>provided</scope>
+            <artifactId>voltdbclient</artifactId>
+            <version>15.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.voltdb</groupId>
+            <artifactId>volt-procedure-api</artifactId>
+            <version>15.0.0</version>
         </dependency>
     </dependencies>
 
