@@ -194,9 +194,10 @@ services:
       - JAVA_OPTS=-XX:InitialRAMPercentage=80.0 -XX:MinRAMPercentage=80.0 -XX:MaxRAMPercentage=80.0 --add-opens java.base/sun.nio.ch=ALL-UNNAMED -Dvoltsp.parallelism=10
     volumes:
       - ./resources/voltsp-apps:/volt-apps
-      - ./resources/voltsp-config-3dbnode.yaml:/etc/voltsp/configuration.yaml
+      - ./resources/voltsp-config-3dbnode.yaml:/etc/voltsp/config/configuration.yaml
       - ./resources/log4j2.xml:/etc/app/log4j2.xml
-      - ${LICENSE_FILE_PATH}:/etc/voltsp/license.xml
+      - ./resources/params.yaml:/etc/voltsp/config/params.yaml
+      - ${LICENSE_FILE_PATH}:/tmp/license.xml
 
 volumes:
   db:
