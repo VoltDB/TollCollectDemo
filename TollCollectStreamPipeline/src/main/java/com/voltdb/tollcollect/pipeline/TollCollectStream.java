@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 Volt Active Data Inc.
+ * Copyright (C) 2025-2026 Volt Active Data Inc.
  *
  * Use of this source code is governed by an MIT
  * license that can be found in the LICENSE file or at
@@ -8,10 +8,11 @@
 package com.voltdb.tollcollect.pipeline;
 
 import org.voltdb.stream.api.ExecutionContext;
-import org.voltdb.stream.api.Sinks;
 import org.voltdb.stream.api.Sources;
 import org.voltdb.stream.api.pipeline.VoltPipeline;
 import org.voltdb.stream.api.pipeline.VoltStreamBuilder;
+import org.voltdb.stream.plugin.volt.api.VoltProcedureRequest;
+import org.voltdb.stream.plugin.volt.api.VoltProcedureSinkConfigBuilder;
 
 public class TollCollectStream implements VoltPipeline {
 
@@ -32,19 +33,21 @@ public class TollCollectStream implements VoltPipeline {
                                 plateRecordGenerator::generatePlateRecord
                         )
                 )
-                .processWith(
-                        record -> new Object[]{
+                .processWith(record ->
+                        VoltProcedureRequest.createWithParameters(
+                                "ProcessPlate",
                                 record.scanTimestamp(),
                                 record.location(),
                                 record.lane(),
                                 record.plateNum(),
                                 record.vehicleClass()
-                        }
+                        )
                 )
                 .terminateWithSink(
-                        Sinks.volt().procedureCall()
-                                .withProcedureName("ProcessPlate")
-                                .withHostAndStandardPort(voltdbServer)
+                        VoltProcedureSinkConfigBuilder.builder()
+                                .withVoltClientResourceBuilder(client -> {
+                                    client.addToServers(voltdbServer);
+                                })
                 );
     }
 }

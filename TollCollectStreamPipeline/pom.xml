@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (C) 2025 Volt Active Data Inc.
+    Copyright (C) 2025-2026 Volt Active Data Inc.
 
     Use of this source code is governed by an MIT
     license that can be found in the LICENSE file or at
@@ -20,10 +20,9 @@
     </parent>
 
     <artifactId>TollCollectStreamPipeline</artifactId>
-    <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <volt.stream.version>1.2.0</volt.stream.version>
+        <volt.stream.version>1.7.1</volt.stream.version>
     </properties>
 
     <dependencies>
@@ -36,6 +35,12 @@
         <dependency>
             <groupId>org.voltdb</groupId>
             <artifactId>volt-stream-connectors-api</artifactId>
+            <version>${volt.stream.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.voltdb</groupId>
+            <artifactId>volt-stream-plugin-volt-api</artifactId>
             <version>${volt.stream.version}</version>
             <scope>provided</scope>
         </dependency>
